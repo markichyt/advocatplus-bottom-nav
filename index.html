@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адвокат+ | Безоплатна правова допомога</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles_bottom_nav.css">
+</head>
+
+<body>
+
+<!-- Top accent bar -->
+<div class="accent-bar"></div>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-group">
+      <a href="#" onclick="showPage('home');return false;">
+        <img src="LOGO/LOGO UNBA.png" alt="НААУ" class="logo-desktop" style="height:32px;width:auto;object-fit:contain;display:block;">
+        <img src="LOGO/LOGO UNBA mini.png" alt="НААУ" class="logo-mobile" style="height:26px;width:auto;object-fit:contain;display:none;">
+      </a>
+      <div class="logo-sep"></div>
+      <a href="#" onclick="showPage('home');return false;">
+        <img src="LOGO/LOGO ADVOCAT.png" alt="Адвокат+" class="logo-desktop" style="height:27px;width:auto;object-fit:contain;display:block;">
+        <img src="LOGO/LOGO ADVOCAT mini.png" alt="Адвокат+" class="logo-mobile" style="height:26px;width:auto;object-fit:contain;display:none;">
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <button class="nav-link active" onclick="showPage('home')" id="nav-home">Головна</button>
+      <button class="nav-link" onclick="showPage('about')" id="nav-about">Про проєкт</button>
+      <button class="nav-link" onclick="showPage('team')" id="nav-team">Команда</button>
+      <button class="nav-link" onclick="showPage('knowledge')" id="nav-knowledge">База знань</button>
+      <button class="nav-link" onclick="showPage('reports')" id="nav-reports">Звіти</button>
+      <button class="nav-link" onclick="showPage('lawyers')" id="nav-lawyers">Для адвокатів</button>
+    </nav>
+
+    <div class="soc-row">
+      <a href="https://unba.org.ua/" target="_blank" rel="noopener" class="soc-icon" title="Сайт НААУ">
+        <img src="LOGO/LOGO UNBA mini.png" alt="НААУ" style="width:16px;height:16px;object-fit:contain;">
+      </a>
+      <a href="https://www.linkedin.com/company/ukrainian-national-bar-association/" target="_blank" rel="noopener" class="soc-icon" title="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/UkrainianNationalBarAssociation/" target="_blank" rel="noopener" class="soc-icon" title="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@%D0%9D%D0%90%D0%90%D0%A3/featured" target="_blank" rel="noopener" class="soc-icon" title="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://t.me/InfoUNBA" target="_blank" rel="noopener" class="soc-icon" title="Telegram">
+        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ГОЛОВНА
+══════════════════════════════════════════ -->
+<div id="page-home" class="page-section active">
+<div class="container" style="padding-top:32px;padding-bottom:48px;display:flex;flex-direction:column;gap:20px;">
+
+  <!-- Hero -->
+  <div class="hero-block">
+    <div class="hero-badge"><div class="hero-badge-dot"></div>Проєкт НААУ · 2026</div>
+    <h1 class="hero-title">
+      <span style="color:#FCC307;">БЕЗОПЛАТНА</span><br>ПРАВОВА ДОПОМОГА<br>ДЛЯ <em>ВІЙСЬКОВОСЛУЖБОВЦІВ</em><br>УКРАЇНИ ТА ЧЛЕНІВ ЇХ СІМЕЙ
+    </h1>
+    <p class="hero-sub">Кваліфікована юридична підтримка безоплатно — від верифікованих адвокатів НААУ, закріплених за вашою військовою частиною.</p>
+  </div>
+
+  <!-- Wizard -->
+  <div class="card">
+    <div style="padding:28px 28px 0;border-bottom:1px solid var(--border);">
+      <div class="wizard-step-header">
+        <div class="step-badge" id="wizard-step-num">1</div>
+        <div class="step-title" id="wizard-step-title">З ким ми зараз спілкуємось?</div>
+      </div>
+      <!-- Step 1 -->
+      <div id="step-1">
+        <div class="choice-grid" style="padding-bottom:28px;">
+          <button class="choice-btn" onclick="nextStep(2,'Я військовослужбовець')">
+            <span class="choice-emoji">🪖</span>Я військовослужбовець
+          </button>
+          <button class="choice-btn" onclick="nextStep(2,'Я родич військового')">
+            <span class="choice-emoji">👨‍👩‍👧</span>Я родич військового
+          </button>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div id="step-2" style="display:none;padding-bottom:28px;">
+        <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:12px;">Оберіть вашу військову частину:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="unit-btn" onclick="selectUnit('3 БрОП, в/ч 3017 «Спартан»')">🏛️&nbsp; <strong>3 БрОП</strong> — в/ч 3017 «Спартан»</button>
+          <button class="unit-btn" onclick="selectUnit('79 ОДШБр, в/ч А0224')">🏛️&nbsp; <strong>79 ОДШБр</strong> — в/ч А0224</button>
+          <button class="unit-btn" onclick="selectUnit('157 ОМБр, в/ч А5006')">🏛️&nbsp; <strong>157 ОМБр</strong> — в/ч А5006</button>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:12px;" onclick="wizardBack(1)">← Назад</button>
+      </div>
+      <!-- Step 3 -->
+      <div id="step-3" style="display:none;padding-bottom:28px;">
+        <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:12px;">Оберіть тему звернення:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="topic-btn" onclick="selectTopic('Запис на консультацію до адвоката','consult')">📅&nbsp; <strong>Запис на консультацію до адвоката</strong></button>
+          <button class="topic-btn" onclick="selectTopic('Мобілізація, служба, статус, УБД','info')">📋&nbsp; <strong>Мобілізація, служба, статус, УБД</strong></button>
+          <button class="topic-btn" onclick="selectTopic('ВЛК, поранення, інвалідність','info')">🏥&nbsp; <strong>ВЛК, поранення, інвалідність</strong></button>
+          <button class="topic-btn" onclick="selectTopic('Грошове забезпечення, соцгарантії','info')">💰&nbsp; <strong>Грошове забезпечення, соцгарантії</strong></button>
+          <button class="topic-btn" onclick="selectTopic('Бібліотека: чек-листи, пам\'ятки, рапорти','library')">📚&nbsp; <strong>Бібліотека: чек-листи, пам'ятки, рапорти</strong></button>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:12px;" onclick="wizardBack(2)">← Назад</button>
+      </div>
+      <!-- Step 4a -->
+      <div id="step-4a" style="display:none;padding-bottom:28px;">
+        <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:14px;">Залиште ваш контакт — адвокат зв'яжеться з вами:</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input class="input-field" type="text" id="contact-name" placeholder="Ваше ім'я">
+          <input class="input-field" type="text" id="contact-phone" placeholder="Телефон або Telegram">
+          <button class="btn btn-navy btn-full" onclick="submitContact()">Надіслати заявку</button>
+          <button class="btn btn-ghost btn-full" style="margin-top:4px;" onclick="wizardBack(3)">← Назад</button>
+        </div>
+      </div>
+      <!-- Step 4b -->
+      <div id="step-4b" style="display:none;padding-bottom:28px;">
+        <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:14px;">Оберіть матеріал для завантаження:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);">
+            <span style="font-weight:700;font-size:13px;color:var(--dark);">Чек-листи</span>
+            <button class="btn btn-primary" style="padding:8px 16px;font-size:12px;">Завантажити</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);">
+            <span style="font-weight:700;font-size:13px;color:var(--dark);">Пам'ятки</span>
+            <button class="btn btn-primary" style="padding:8px 16px;font-size:12px;">Завантажити</button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);">
+            <span style="font-weight:700;font-size:13px;color:var(--dark);">Зразки рапортів</span>
+            <button class="btn btn-primary" style="padding:8px 16px;font-size:12px;">Завантажити</button>
+          </div>
+          <button class="btn btn-ghost btn-full" style="margin-top:4px;" onclick="wizardBack(3)">← Назад</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-wrap">
+      <div class="chat-header">
+        <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-avatar">
+        <div>
+          <div class="chat-name">Черговий юрист</div>
+          <div class="online-label"><span class="online-dot"></span>ОНЛАЙН</div>
+        </div>
+      </div>
+      <div id="chat-messages">
+        <div style="font-size:11px;text-align:center;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:4px 0 8px;">Сьогодні</div>
+        <div class="chat-lawyer-row">
+          <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-mini-av">
+          <div class="chat-bubble-lawyer">Вітаємо в сервісі «Адвокат+»! 👋<br>Напишіть ваше питання або скористайтесь навігатором вище.</div>
+        </div>
+        <div id="typing-indicator" style="display:none;" class="chat-lawyer-row">
+          <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-mini-av">
+          <div class="chat-bubble-lawyer" style="display:flex;align-items:center;gap:4px;padding:14px;">
+            <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Напишіть повідомлення...">
+        <button class="send-btn" onclick="sendChatMessage()" id="chat-submit-btn">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consultants -->
+  <div class="card">
+    <div style="padding:24px 24px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div>
+        <div class="section-label">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+          Верифіковані фахівці НААУ
+        </div>
+        <div class="section-title">Адвокати програми</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;margin-top:4px;">
+        <button id="cPrev" class="c-arrow" aria-label="Назад">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="cNext" class="c-arrow" aria-label="Вперед">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="padding:0 24px 24px;">
+      <div class="c-viewport">
+        <div class="c-track" id="cTrack">
+          <!-- Адвокат 1 -->
+          <div class="c-card">
+            <div class="c-card-photo-placeholder">А</div>
+            <div class="c-card-body">
+              <p class="c-card-name">Андрєєв<br>Ігор Петрович</p>
+              <span class="c-card-type">Адвокат</span>
+              <div class="c-card-geo">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                в/ч 3017 «Спартан»
+              </div>
+              <button class="c-card-btn">Звернутися</button>
+            </div>
+          </div>
+          <!-- Адвокат 2 -->
+          <div class="c-card">
+            <div class="c-card-photo-placeholder">Г</div>
+            <div class="c-card-body">
+              <p class="c-card-name">Гатеж<br>Вадим Михайлович</p>
+              <span class="c-card-type">Адвокат</span>
+              <div class="c-card-geo">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                в/ч А0224
+              </div>
+              <button class="c-card-btn">Звернутися</button>
+            </div>
+          </div>
+          <!-- Адвокат 3 -->
+          <div class="c-card">
+            <div class="c-card-photo-placeholder">М</div>
+            <div class="c-card-body">
+              <p class="c-card-name">Марченко<br>Поліна Вікторівна</p>
+              <span class="c-card-type">Адвокат</span>
+              <div class="c-card-geo">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                в/ч А5006
+              </div>
+              <button class="c-card-btn">Звернутися</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ПРО ПРОЄКТ
+══════════════════════════════════════════ -->
+<div id="page-about" class="page-section">
+<div class="container">
+  <div class="page-heading">
+    <h1>Про проєкт</h1>
+    <p>Національний проєкт системної правової підтримки військових України</p>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showSubTab('about-general', this)">Загально</button>
+    <button class="tab-btn" onclick="showSubTab('about-military', this)">Для військовослужбовців</button>
+    <button class="tab-btn" onclick="showSubTab('about-family', this)">Для сімей</button>
+  </div>
+
+  <!-- Загально -->
+  <div id="about-general" class="sub-content active">
+    <div class="card card-pad" style="display:flex;flex-direction:column;gap:20px;">
+      <p style="font-size:15px;font-weight:600;color:var(--dark);line-height:1.6;">
+        «АДВОКАТ+» — це національний проєкт системної правової підтримки військовослужбовців України, членів їх сімей, який передбачає надання безоплатних первинних юридичних консультацій з питань проходження військової служби через мережу адвокатів, закріплених за конкретними військовими частинами.
+      </p>
+      <div class="divider"></div>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+        Проєкт підготовлено Комітетом НААУ з питань захисту постраждалих від збройної агресії проти України, компенсаційних механізмів та євроінтеграційного правового забезпечення відновлення.
+      </p>
+      <div>
+        <h2 style="font-size:16px;font-weight:800;color:var(--dark);margin-bottom:10px;">Мета проєкту</h2>
+        <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+          Забезпечення ефективного доступу військовослужбовців України та членів їх сімей до кваліфікованої правничої допомоги, захист їх прав і законних інтересів та підвищення правової безпеки військової служби відповідно до ст. 59 Конституції України, Закону України «Про адвокатуру та адвокатську діяльність», Закону України «Про безоплатну правничу допомогу» та ст. 20 Закону України «Про соціальний і правовий захист військовослужбовців та членів їх сімей».
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Для військових -->
+  <div id="about-military" class="sub-content">
+    <div class="card card-pad" style="display:flex;flex-direction:column;gap:16px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--dark);">Як працює проєкт з військовослужбовцями?</h2>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">Безоплатну первинну юридичну допомогу отримують:</p>
+      <ul style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.7;padding-left:20px;display:flex;flex-direction:column;gap:4px;">
+        <li>чинні військовослужбовці ЗСУ, НГУ, ДПСУ та інших формувань;</li>
+        <li>ті, хто проходить ВЛК, перебуває на лікуванні після поранення або у процесі звільнення зі служби;</li>
+        <li>ветерани та особи, на яких поширюється Закон «Про статус ветеранів війни»;</li>
+        <li>уповноважені представники військових частин.</li>
+      </ul>
+      <div class="divider"></div>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+        Для запису на безоплатну консультацію військовослужбовцю достатньо заповнити коротку форму на сайті Адвокат+ або зв'язатися з адвокатом, закріпленим за його військовою частиною, за контактним номером, який доводиться до відома особового складу.
+      </p>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+        Після запису адвокат проведе консультацію у онлайн форматі та надасть кваліфіковану правничу допомогу з питань проходження служби, виплат, статусів та інших правових потреб військовослужбовця.
+      </p>
+    </div>
+  </div>
+
+  <!-- Для сімей -->
+  <div id="about-family" class="sub-content">
+    <div class="card card-pad" style="display:flex;flex-direction:column;gap:16px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--dark);">Як працює проєкт з сім'ями?</h2>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">Безоплатну первинну юридичну допомогу отримують:</p>
+      <ul style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.7;padding-left:20px;display:flex;flex-direction:column;gap:4px;">
+        <li>члени сімей військовослужбовців;</li>
+        <li>члени сімей військовополонених;</li>
+        <li>члени сімей загиблих (померлих) та зниклих безвісти військовослужбовців.</li>
+      </ul>
+      <div class="divider"></div>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+        Для запису на безоплатну консультацію членам сімей достатньо заповнити коротку форму на сайті або зв'язатися з адвокатом за контактним номером, який доводиться до відома особового складу військової частини.
+      </p>
+      <p style="font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+        Після запису адвокат проведе консультацію в онлайн форматі та надасть кваліфіковану правничу допомогу з питань соціальних гарантій, виплат, майнових та сімейних прав.
+      </p>
+    </div>
+  </div>
+
+  <div style="padding-bottom:48px;"></div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: КОМАНДА
+══════════════════════════════════════════ -->
+<div id="page-team" class="page-section">
+<div class="container">
+  <div class="page-heading">
+    <h1>Команда</h1>
+    <p>Адвокати та засновники проєкту «Адвокат+»</p>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div class="section-label">Засновники</div>
+  </div>
+  <div class="team-grid" style="margin-bottom:36px;">
+    <div class="team-card">
+      <div class="team-ava-wrap">Л</div>
+      <div class="team-name">Лідія Павлівна<br>Ізовітова</div>
+      <div class="team-role">Голова Ради адвокатів України</div>
+      <div class="team-org">Національна асоціація адвокатів України</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div class="section-label">Адвокати програми</div>
+  </div>
+  <div class="team-grid" style="margin-bottom:48px;">
+    <div class="team-card">
+      <div class="team-ava-wrap">А</div>
+      <div class="team-name">Андрєєв<br>Ігор Петрович</div>
+      <div class="team-role">Адвокат</div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap">Г</div>
+      <div class="team-name">Гатеж<br>Вадим Михайлович</div>
+      <div class="team-role">Адвокат</div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap">М</div>
+      <div class="team-name">Марченко<br>Поліна Вікторівна</div>
+      <div class="team-role">Адвокат</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: БАЗА ЗНАНЬ
+══════════════════════════════════════════ -->
+<div id="page-knowledge" class="page-section">
+<div class="container">
+  <div class="page-heading">
+    <h1>База знань</h1>
+    <p>Корисні узагальнення для військовослужбовців — Випуск 1</p>
+  </div>
+
+  <!-- PDF banner -->
+  <div class="dl-banner" style="margin-bottom:20px;">
+    <div>
+      <div class="dl-title">Корисні узагальнення для військовослужбовців</div>
+      <div class="dl-sub">Підготовлено Комітетом НААУ · Випуск 1 · 2026</div>
+    </div>
+    <a href="./Корисні_узагальнення_для_військовослужбовців.pdf" download class="btn btn-primary">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
+      Завантажити PDF
+    </a>
+  </div>
+
+  <!-- Accordion items -->
+  <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:48px;">
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">🩹</div>
+          <div class="kb-q">Як пов'язати поранення із захистом Батьківщини?</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <p>Причинний зв'язок поранення, травми, контузії, каліцтва встановлюється військово-лікарською комісією (ВЛК).</p>
+          <span class="label">Чому це важливо? Дає право на:</span>
+          <ul>
+            <li>Додаткову винагороду <strong>100 000 грн щомісяця</strong> під час стаціонарного лікування</li>
+            <li>Одноразову допомогу при інвалідності: I гр. — 400-кратний, II гр. — 300-кратний, III гр. — 250-кратний прожитковий мінімум</li>
+            <li>Пріоритет при отриманні медпослуг, реабілітації, протезування</li>
+            <li>Пенсійне забезпечення та додаткові пільги</li>
+          </ul>
+          <span class="label">Основні документи:</span>
+          <ul>
+            <li><strong>Первинна медична карта (форма №001/о)</strong> — заповнює медик одразу після поранення</li>
+            <li><strong>Довідка про обставини травми</strong> — видає командир в/ч, є ключовим документом</li>
+            <li><strong>Висновок ВЛК</strong> — встановлює причинний зв'язок та придатність до служби</li>
+            <li><strong>Рішення ЕКОПФО</strong> (з 01.01.2025 замість МСЕК) — встановлює групу інвалідності</li>
+          </ul>
+          <div class="tip-box">Алгоритм дій: зберігайте первинну медкарту → отримайте довідку від командира → пройдіть ВЛК → за потреби ЕКОПФО</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">🏥</div>
+          <div class="kb-q">Як правильно оформити відпустку для лікування за рішенням ВЛК?</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <p>Військовослужбовець <strong>не може одразу після рішення ВЛК поїхати у відпустку</strong> — потрібно офіційно оформити відпускний квиток, інакше відсутність може кваліфікуватися як самовільне залишення частини.</p>
+          <span class="label">Що потрібно зробити:</span>
+          <ul>
+            <li>Написати рапорт про надання відпустки на ім'я командира</li>
+            <li>Якщо неможливо прибути особисто — направити документи через ТЦК та СП або заклад охорони здоров'я через систему СЕДО</li>
+            <li>У рапорті вказати адресу для надсилання відпускного квитка (ТЦК та СП або ВСП)</li>
+            <li>Після отримання квитка — стати на облік у ТЦК та СП або ВСП</li>
+          </ul>
+          <div class="tip-box">Загальний час лікування + відпустки не може перевищувати 12 місяців поспіль. Через 4 місяці — обов'язково пройти ВЛК повторно.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">💰</div>
+          <div class="kb-q">Як отримати додаткову винагороду до 100 000 грн за бойові завдання?</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <p>Право мають військовослужбовці, які перебувають у зонах бойових зіткнень, на тимчасово окупованих територіях або між нашими військами та ворогом.</p>
+          <span class="label">Завдання, за які передбачена винагорода:</span>
+          <ul>
+            <li>Участь у бойових діях на передовій, польоти в зонах бойових дій</li>
+            <li>Завдання ударів ракетними військами, артилерією або ППО</li>
+            <li>Розмінування, надання медичної допомоги в зоні бойових дій</li>
+            <li>Ураження повітряних і морських цілей ворога</li>
+          </ul>
+          <span class="label">Розмір:</span>
+          <p>Пропорційно кількості днів виконання завдань. При виконанні весь місяць — 100 000 грн повністю.</p>
+          <span class="label">Підтверджуючі документи:</span>
+          <ul>
+            <li>Бойовий наказ або розпорядження</li>
+            <li>Журнал бойових дій</li>
+            <li>Рапорт командира підрозділу про участь кожного військовослужбовця</li>
+          </ul>
+          <div class="tip-box">У разі відмови — звертайтесь на гарячу лінію МОУ: <strong>1512</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">🎖️</div>
+          <div class="kb-q">Як отримати 100 000 грн після поранення?</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <p>Право мають ті, хто отримав поранення пов'язане із захистом Батьківщини та перебуває на стаціонарному лікуванні або у відпустці для лікування <strong>тяжкого поранення</strong> (підтвердженого ВЛК).</p>
+          <p>Виплачується щомісяця протягом лікування, але не більше 4 місяців без висновку ВЛК.</p>
+          <span class="label">Необхідні документи:</span>
+          <ul>
+            <li>Довідка про обставини травми (від командира в/ч)</li>
+            <li>Або акт про нещасний випадок (від начальника медслужби в/ч)</li>
+            <li>Медичний висновок ВЛК про ступінь тяжкості (для відпустки)</li>
+          </ul>
+          <div class="tip-box">Після отримання довідки командир в/ч видає наказ про виплату. При відмові — гаряча лінія МОУ 1512 або адміністративний суд.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">📜</div>
+          <div class="kb-q">Статус УБД — як отримати самостійно?</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <span class="label">Кроки для чинних військовослужбовців:</span>
+          <ol>
+            <li>Подати рапорт командиру в/ч про надання документів для статусу УБД</li>
+            <li>Отримати довідку про безпосередню участь у заходах оборони України</li>
+            <li>Зібрати підтвердні документи: витяги бойових донесень, журналів бойових дій, польотних листів тощо</li>
+            <li>Дізнатися адресу комісії з питань УБД у кадровому підрозділі</li>
+            <li>Передати пакет документів до комісії разом із рапортом, згодою на обробку даних, фото 3×4 (2 шт.)</li>
+          </ol>
+          <div class="tip-box">Комісія зобов'язана розглянути документи протягом <strong>1 місяця</strong> і повідомити про рішення.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">💼</div>
+          <div class="kb-q">Виплати при звільненні з військової служби</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <span class="label">Що перевірити при звільненні:</span>
+          <ul>
+            <li>Індексація грошового забезпечення за весь період служби</li>
+            <li>Грошова компенсація за неотримане речове майно</li>
+            <li>Одноразова грошова допомога мобілізованим (4% за кожен місяць, але не менше 25%)</li>
+            <li>Компенсація за всі невикористані відпустки, зокрема УБД (14 кал. днів/рік)</li>
+            <li>При звільненні за станом здоров'я — 50% місячного забезпечення за кожен рік служби</li>
+            <li>Додаткова винагорода 100 000 грн за бойові дії або поранення</li>
+            <li>Матеріальна допомога та допомога на оздоровлення</li>
+          </ul>
+          <div class="tip-box">Окремо подайте рапорт на компенсацію речового майна — вона не нараховується автоматично.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">🏠</div>
+          <div class="kb-q">Житло для військовослужбовців від держави</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <span class="label">Хто може отримати житло:</span>
+          <ul>
+            <li>Учасники бойових дій (УБД) — першочергово</li>
+            <li>Військові з інвалідністю I та II груп — позачергово, протягом 2 років</li>
+            <li>Сім'ї загиблих або зниклих безвісти — позачергово</li>
+            <li>Військовослужбовці з вислугою понад 20 років</li>
+            <li>ВПО зі статусом УБД, особи що втратили житло на окупованих територіях</li>
+          </ul>
+          <span class="label">Як стати на облік:</span>
+          <ul>
+            <li><strong>За місцем служби:</strong> рапорт командиру в/ч + довідки про реєстрацію сім'ї</li>
+            <li><strong>За місцем проживання:</strong> звернення до виконкому або ЦНАП з заявою та документами</li>
+          </ul>
+          <div class="tip-box">Право на забезпечення житлом можна реалізувати лише один раз за весь період служби. Комісія розглядає заяву протягом місяця.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kb-item">
+      <div class="kb-header" onclick="toggleKb(this)">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="kb-icon">📄</div>
+          <div class="kb-q">Зразок рапорту на відпустку для лікування</div>
+        </div>
+        <svg class="kb-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+      <div class="kb-body">
+        <div class="kb-content">
+          <p>Зразок рапорту (надсилається через СЕДО або особисто):</p>
+          <div class="code-block">(Вказати посаду безпосереднього командира)
+військової частини А____
+
+Рапорт
+
+Прошу надати мені, [звання Прізвище Ім'я По батькові], відпустку для лікування після поранення (контузії, травми або каліцтва), на підставі рішення ВЛК № __ від __.__.202_, відповідно до п. 11 ст. 10¹ Закону України «Про соціальний і правовий захист військовослужбовців та членів їх сімей» терміном на ___ календарних днів з __.__.202_.
+
+Відпустку буду проводити за адресою: ________________________
+Контактний телефон: ________________________
+
+Відпускний квиток прошу направити через систему СЕДО на
+________________________ (назва ТЦК та СП або ВСП)
+
+Посада, звання _____________ Ім'я ПРІЗВИЩЕ
+__.__.202_ (підпис)</div>
+          <div class="tip-box">Повний документ з усіма узагальненнями доступний для завантаження у форматі PDF вище.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ЗВІТИ
+══════════════════════════════════════════ -->
+<div id="page-reports" class="page-section">
+<div class="container">
+  <div class="page-heading">
+    <h1>Звіти</h1>
+    <p>Результати роботи програми</p>
+  </div>
+  <div class="card">
+    <div class="empty-state">
+      <div class="empty-icon">📄</div>
+      <div class="empty-title">Звіти готуються</div>
+      <div class="empty-sub">PDF-звіти з результатами роботи програми будуть опубліковані тут після їх підготовки.</div>
+    </div>
+  </div>
+  <div style="padding-bottom:48px;"></div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ДЛЯ АДВОКАТІВ
+══════════════════════════════════════════ -->
+<div id="page-lawyers" class="page-section">
+<div class="container" style="max-width:640px;">
+  <div class="page-heading">
+    <h1>Для адвокатів</h1>
+    <p>Долучитись до проєкту «Адвокат+»</p>
+  </div>
+  <div class="card card-pad" style="display:flex;flex-direction:column;gap:16px;">
+    <p style="font-size:14px;font-weight:500;color:var(--muted);line-height:1.65;">
+      Якщо ви адвокат і бажаєте долучитися до проєкту «Адвокат+» та надавати безоплатну правничу допомогу військовослужбовцям і членам їх сімей — надсилайте заявку на електронну адресу:
+    </p>
+    <div class="highlight-box">
+      <a href="mailto:advokatplus@unba.org" class="email-link">advokatplus@unba.org</a>
+    </div>
+    <p style="font-size:14px;font-weight:500;color:var(--muted);line-height:1.65;">
+      Ми розглянемо вашу кандидатуру та зв'яжемося з вами.
+    </p>
+  </div>
+  <div style="padding-bottom:48px;"></div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logos">
+        <a href="#" onclick="showPage('home');return false;" class="footer-logo-plate">
+          <img src="LOGO/LOGO UNBA.png" alt="НААУ" style="height:28px;width:auto;object-fit:contain;">
+        </a>
+        <div style="width:1px;height:24px;background:var(--border);"></div>
+        <a href="#" onclick="showPage('home');return false;" class="footer-logo-plate">
+          <img src="LOGO/LOGO ADVOCAT.png" alt="Адвокат+" style="height:24px;width:auto;object-fit:contain;">
+        </a>
+      </div>
+      <nav class="footer-nav">
+        <a onclick="showPage('home');return false;" href="#">Головна</a>
+        <a onclick="showPage('about');return false;" href="#">Про проєкт</a>
+        <a onclick="showPage('team');return false;" href="#">Команда</a>
+        <a onclick="showPage('knowledge');return false;" href="#">База знань</a>
+        <a onclick="showPage('lawyers');return false;" href="#">Для адвокатів</a>
+        <a href="#">Політика конфіденційності</a>
+      </nav>
+      <div class="footer-soc">
+        <a href="https://unba.org.ua/" target="_blank" rel="noopener" class="footer-soc-icon" title="Сайт НААУ">
+          <img src="LOGO/LOGO UNBA mini.png" alt="НААУ" style="width:15px;height:15px;object-fit:contain;">
+        </a>
+        <a href="https://www.linkedin.com/company/ukrainian-national-bar-association/" target="_blank" rel="noopener" class="footer-soc-icon" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/UkrainianNationalBarAssociation/" target="_blank" rel="noopener" class="footer-soc-icon">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://t.me/InfoUNBA" target="_blank" rel="noopener" class="footer-soc-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@%D0%9D%D0%90%D0%90%D0%A3/featured" target="_blank" rel="noopener" class="footer-soc-icon">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Адвокат+. Усі права захищені. Сервіс працює згідно з чинним законодавством України.</div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script src="script_bottom_nav.js"></script>
+
+<!-- Bottom tab bar -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="bottom-nav-btn active" id="bnav-home" onclick="showPageBottom('home')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+      <span class="bnav-label">Головна</span>
+    </button>
+    <button class="bottom-nav-btn" id="bnav-about" onclick="showPageBottom('about')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span class="bnav-label">Про проєкт</span>
+    </button>
+    <button class="bottom-nav-btn" id="bnav-team" onclick="showPageBottom('team')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      <span class="bnav-label">Команда</span>
+    </button>
+    <button class="bottom-nav-btn" id="bnav-knowledge" onclick="showPageBottom('knowledge')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span class="bnav-label">База знань</span>
+    </button>
+    <button class="bottom-nav-btn" id="bnav-reports" onclick="showPageBottom('reports')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      <span class="bnav-label">Звіти</span>
+    </button>
+    <button class="bottom-nav-btn" id="bnav-lawyers" onclick="showPageBottom('lawyers')">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+      <span class="bnav-label">Адвокати</span>
+    </button>
+  </div>
+</nav>
+
+</body>
+</html>
