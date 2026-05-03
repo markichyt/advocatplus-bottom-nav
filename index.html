@@ -73,7 +73,6 @@
 
   <!-- Hero -->
   <div class="hero-block">
-    <div class="hero-badge"><div class="hero-badge-dot"></div>Проєкт НААУ · 2026</div>
     <h1 class="hero-title">
       <span style="color:#FCC307;">БЕЗОПЛАТНА</span><br>ПРАВОВА ДОПОМОГА<br>ДЛЯ <em>ВІЙСЬКОВОСЛУЖБОВЦІВ</em><br>УКРАЇНИ ТА ЧЛЕНІВ ЇХ СІМЕЙ
     </h1>
@@ -82,14 +81,14 @@
 
   <!-- Wizard -->
   <div class="card">
-    <div style="padding:28px 28px 0;border-bottom:1px solid var(--border);">
+    <div style="padding:28px 28px 28px;">
       <div class="wizard-step-header">
         <div class="step-badge" id="wizard-step-num">1</div>
         <div class="step-title" id="wizard-step-title">З ким ми зараз спілкуємось?</div>
       </div>
       <!-- Step 1 -->
       <div id="step-1">
-        <div class="choice-grid" style="padding-bottom:28px;">
+        <div class="choice-grid">
           <button class="choice-btn" onclick="nextStep(2,'Я військовослужбовець')">
             <span class="choice-emoji">🪖</span>Я військовослужбовець
           </button>
@@ -99,7 +98,7 @@
         </div>
       </div>
       <!-- Step 2 -->
-      <div id="step-2" style="display:none;padding-bottom:28px;">
+      <div id="step-2" style="display:none;">
         <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:12px;">Оберіть вашу військову частину:</p>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="unit-btn" onclick="selectUnit('3 БрОП, в/ч 3017 «Спартан»')">🏛️&nbsp; <strong>3 БрОП</strong> — в/ч 3017 «Спартан»</button>
@@ -109,29 +108,29 @@
         <button class="btn btn-ghost" style="margin-top:12px;" onclick="wizardBack(1)">← Назад</button>
       </div>
       <!-- Step 3 -->
-      <div id="step-3" style="display:none;padding-bottom:28px;">
+      <div id="step-3" style="display:none;">
         <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:12px;">Оберіть тему звернення:</p>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="topic-btn" onclick="selectTopic('Запис на консультацію до адвоката','consult')">📅&nbsp; <strong>Запис на консультацію до адвоката</strong></button>
-          <button class="topic-btn" onclick="selectTopic('Мобілізація, служба, статус, УБД','info')">📋&nbsp; <strong>Мобілізація, служба, статус, УБД</strong></button>
-          <button class="topic-btn" onclick="selectTopic('ВЛК, поранення, інвалідність','info')">🏥&nbsp; <strong>ВЛК, поранення, інвалідність</strong></button>
-          <button class="topic-btn" onclick="selectTopic('Грошове забезпечення, соцгарантії','info')">💰&nbsp; <strong>Грошове забезпечення, соцгарантії</strong></button>
+          <button class="topic-btn" onclick="selectTopic('Мобілізація, служба, статус, УБД','knowledge')">📋&nbsp; <strong>Мобілізація, служба, статус, УБД</strong></button>
+          <button class="topic-btn" onclick="selectTopic('ВЛК, поранення, інвалідність','knowledge')">🏥&nbsp; <strong>ВЛК, поранення, інвалідність</strong></button>
+          <button class="topic-btn" onclick="selectTopic('Грошове забезпечення, соцгарантії','knowledge')">💰&nbsp; <strong>Грошове забезпечення, соцгарантії</strong></button>
           <button class="topic-btn" onclick="selectTopic('Бібліотека: чек-листи, пам\'ятки, рапорти','library')">📚&nbsp; <strong>Бібліотека: чек-листи, пам'ятки, рапорти</strong></button>
         </div>
         <button class="btn btn-ghost" style="margin-top:12px;" onclick="wizardBack(2)">← Назад</button>
       </div>
       <!-- Step 4a -->
-      <div id="step-4a" style="display:none;padding-bottom:28px;">
+      <div id="step-4a" style="display:none;">
         <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:14px;">Залиште ваш контакт — адвокат зв'яжеться з вами:</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <input class="input-field" type="text" id="contact-name" placeholder="Ваше ім'я">
-          <input class="input-field" type="text" id="contact-phone" placeholder="Телефон або Telegram">
+          <input class="input-field" type="text" id="contact-phone" placeholder="Телефон або WhatsApp">
           <button class="btn btn-navy btn-full" onclick="submitContact()">Надіслати заявку</button>
           <button class="btn btn-ghost btn-full" style="margin-top:4px;" onclick="wizardBack(3)">← Назад</button>
         </div>
       </div>
       <!-- Step 4b -->
-      <div id="step-4b" style="display:none;padding-bottom:28px;">
+      <div id="step-4b" style="display:none;">
         <p style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:14px;">Оберіть матеріал для завантаження:</p>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);">
@@ -149,25 +148,29 @@
           <button class="btn btn-ghost btn-full" style="margin-top:4px;" onclick="wizardBack(3)">← Назад</button>
         </div>
       </div>
+      <!-- Step 4c: knowledge redirect confirmation -->
+      <div id="step-4c" style="display:none;">
+        <div style="padding:16px 20px;background:rgba(26,58,138,.06);border-radius:12px;text-align:center;border:1px solid rgba(26,58,138,.12);">
+          <p style="font-weight:800;color:var(--navy);font-size:14px;">📖 Відповіді на ваше питання</p>
+          <p style="color:var(--muted);font-size:12.5px;margin-top:4px;font-weight:500;">Перейдіть до розділу «База знань» — там зібрані корисні узагальнення, зразки документів та покрокові інструкції.</p>
+          <button class="btn btn-navy" style="margin-top:12px;" onclick="showPage('knowledge')">Перейти до Бази знань</button>
+        </div>
+        <button class="btn btn-ghost btn-full" style="margin-top:12px;" onclick="wizardBack(3)">← Назад</button>
+      </div>
     </div>
 
     <!-- Chat -->
     <div class="chat-wrap">
-      <div class="chat-header">
-        <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-avatar">
-        <div>
-          <div class="chat-name">Черговий юрист</div>
-          <div class="online-label"><span class="online-dot"></span>ОНЛАЙН</div>
-        </div>
+      <div class="chat-header" style="justify-content:center;">
+        <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:900;color:#fff;letter-spacing:.08em;">ЧАТ</span>
+        <span class="online-label" style="margin:0;"><span class="online-dot"></span>ОНЛАЙН</span>
       </div>
       <div id="chat-messages">
         <div style="font-size:11px;text-align:center;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:4px 0 8px;">Сьогодні</div>
         <div class="chat-lawyer-row">
-          <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-mini-av">
           <div class="chat-bubble-lawyer">Вітаємо в сервісі «Адвокат+»! 👋<br>Напишіть ваше питання або скористайтесь навігатором вище.</div>
         </div>
         <div id="typing-indicator" style="display:none;" class="chat-lawyer-row">
-          <img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-mini-av">
           <div class="chat-bubble-lawyer" style="display:flex;align-items:center;gap:4px;padding:14px;">
             <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
           </div>
@@ -190,7 +193,7 @@
           <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
           Верифіковані фахівці НААУ
         </div>
-        <div class="section-title">Адвокати програми</div>
+        <div class="section-title">Адвокати проєкту</div>
       </div>
       <div style="display:flex;gap:6px;flex-shrink:0;margin-top:4px;">
         <button id="cPrev" class="c-arrow" aria-label="Назад">
@@ -206,7 +209,7 @@
         <div class="c-track" id="cTrack">
           <!-- Адвокат 1 -->
           <div class="c-card">
-            <div class="c-card-photo-placeholder">А</div>
+            <img src="PHOTO/Андрєєв.jpg" alt="Андрєєв І.П." class="c-card-photo">
             <div class="c-card-body">
               <p class="c-card-name">Андрєєв<br>Ігор Петрович</p>
               <span class="c-card-type">Адвокат</span>
@@ -214,12 +217,11 @@
                 <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 в/ч 3017 «Спартан»
               </div>
-              <button class="c-card-btn">Звернутися</button>
             </div>
           </div>
           <!-- Адвокат 2 -->
           <div class="c-card">
-            <div class="c-card-photo-placeholder">Г</div>
+            <img src="PHOTO/Гатеж.jpg" alt="Гатеж В.М." class="c-card-photo">
             <div class="c-card-body">
               <p class="c-card-name">Гатеж<br>Вадим Михайлович</p>
               <span class="c-card-type">Адвокат</span>
@@ -227,12 +229,11 @@
                 <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 в/ч А0224
               </div>
-              <button class="c-card-btn">Звернутися</button>
             </div>
           </div>
           <!-- Адвокат 3 -->
           <div class="c-card">
-            <div class="c-card-photo-placeholder">М</div>
+            <img src="PHOTO/Марченко.JPG" alt="Марченко П.В." class="c-card-photo">
             <div class="c-card-body">
               <p class="c-card-name">Марченко<br>Поліна Вікторівна</p>
               <span class="c-card-type">Адвокат</span>
@@ -240,7 +241,6 @@
                 <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 в/ч А5006
               </div>
-              <button class="c-card-btn">Звернутися</button>
             </div>
           </div>
         </div>
@@ -340,7 +340,7 @@
 <div class="container">
   <div class="page-heading">
     <h1>Команда</h1>
-    <p>Адвокати та засновники проєкту «Адвокат+»</p>
+    <p>Засновники та адвокати проєкту «Адвокат+»</p>
   </div>
 
   <div style="margin-bottom:12px;">
@@ -348,31 +348,131 @@
   </div>
   <div class="team-grid" style="margin-bottom:36px;">
     <div class="team-card">
-      <div class="team-ava-wrap">Л</div>
-      <div class="team-name">Лідія Павлівна<br>Ізовітова</div>
-      <div class="team-role">Голова Ради адвокатів України</div>
-      <div class="team-org">Національна асоціація адвокатів України</div>
+      <div class="team-ava-wrap"><img src="PHOTO/Єрмака А.Б.jpg" alt="Єрмак А.Б."></div>
+      <div class="team-card-body">
+      <div class="team-name">Єрмак<br>Андрій Борисович</div>
+      <div class="team-role">Голова Комітету НААУ</div>
+      <div class="team-org">з питань захисту постраждалих від збройної агресії проти України, компенсаційних механізмів та євроінтеграційного правового забезпечення відновлення</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Грушко Ж.В..jpg" alt="Грушко Ж.В."></div>
+      <div class="team-card-body">
+      <div class="team-name">Грушко<br>Жанна В'ячеславівна</div>
+      <div class="team-role">Заступник Голови Комітету НААУ</div>
+      <div class="team-org">з питань захисту постраждалих від збройної агресії проти України, компенсаційних механізмів та євроінтеграційного правового забезпечення відновлення</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Лебедєва К..jpg" alt="Лебедєва К.С."></div>
+      <div class="team-card-body">
+      <div class="team-name">Лебедєва<br>Катерина Сергіївна</div>
+      <div class="team-role">Секретар Комітету НААУ</div>
+      <div class="team-org">з питань захисту постраждалих від збройної агресії проти України, компенсаційних механізмів та євроінтеграційного правового забезпечення відновлення</div>
+      </div>
     </div>
   </div>
 
   <div style="margin-bottom:12px;">
-    <div class="section-label">Адвокати програми</div>
+    <div class="section-label">Члени Комітету</div>
+  </div>
+  <div class="team-grid" style="margin-bottom:36px;">
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Андрєєв.jpg" alt="Андрєєв І.П."></div>
+      <div class="team-card-body">
+      <div class="team-name">Андрєєв<br>Ігор Петрович</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Гатеж.jpg" alt="Гатеж В.М."></div>
+      <div class="team-card-body">
+      <div class="team-name">Гатеж<br>Вадим Михайлович</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Григорєва А.О..jpg" alt="Григор'єва А.О."></div>
+      <div class="team-card-body">
+      <div class="team-name">Григор'єва<br>Анастасія Олександрівна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Марченко.JPG" alt="Марченко П.В."></div>
+      <div class="team-card-body">
+      <div class="team-name">Марченко<br>Поліна Вікторівна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Поліщук В..jpg" alt="Поліщук В.В."></div>
+      <div class="team-card-body">
+      <div class="team-name">Поліщук<br>Вікторія Віталіївна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Ємельянов В.Р..jpg" alt="Ємельянов В.Р."></div>
+      <div class="team-card-body">
+      <div class="team-name">Ємельянов<br>Володимир Романович</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Степаненко Ю. М..png" alt="Степаненко Ю.М."></div>
+      <div class="team-card-body">
+      <div class="team-name">Степаненко<br>Юлія Миколаївна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Тітова О.О..jpg" alt="Тітова О.О."></div>
+      <div class="team-card-body">
+      <div class="team-name">Тітова<br>Олена Олександрівна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Фомін І.Ю. 2.0..jpg" alt="Фомін І.Ю."></div>
+      <div class="team-card-body">
+      <div class="team-name">Фомін<br>Ігор Юрійович</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-ava-wrap"><img src="PHOTO/Шевченко Л.М..jpg" alt="Шевченко Л.М."></div>
+      <div class="team-card-body">
+      <div class="team-name">Шевченко<br>Лідія Максимівна</div>
+      <div class="team-role">Член Комітету НААУ</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div class="section-label">Адвокати проєкту</div>
   </div>
   <div class="team-grid" style="margin-bottom:48px;">
     <div class="team-card">
-      <div class="team-ava-wrap">А</div>
+      <div class="team-ava-wrap"><img src="PHOTO/Андрєєв.jpg" alt="Андрєєв І.П."></div>
+      <div class="team-card-body">
       <div class="team-name">Андрєєв<br>Ігор Петрович</div>
       <div class="team-role">Адвокат</div>
+      </div>
     </div>
     <div class="team-card">
-      <div class="team-ava-wrap">Г</div>
+      <div class="team-ava-wrap"><img src="PHOTO/Гатеж.jpg" alt="Гатеж В.М."></div>
+      <div class="team-card-body">
       <div class="team-name">Гатеж<br>Вадим Михайлович</div>
       <div class="team-role">Адвокат</div>
+      </div>
     </div>
     <div class="team-card">
-      <div class="team-ava-wrap">М</div>
+      <div class="team-ava-wrap"><img src="PHOTO/Марченко.JPG" alt="Марченко П.В."></div>
+      <div class="team-card-body">
       <div class="team-name">Марченко<br>Поліна Вікторівна</div>
       <div class="team-role">Адвокат</div>
+      </div>
     </div>
   </div>
 </div>
@@ -630,13 +730,13 @@ __.__.202_ (підпис)</div>
 <div class="container">
   <div class="page-heading">
     <h1>Звіти</h1>
-    <p>Результати роботи програми</p>
+    <p>Результати роботи проєкту</p>
   </div>
   <div class="card">
     <div class="empty-state">
       <div class="empty-icon">📄</div>
       <div class="empty-title">Звіти готуються</div>
-      <div class="empty-sub">PDF-звіти з результатами роботи програми будуть опубліковані тут після їх підготовки.</div>
+      <div class="empty-sub">PDF-звіти з результатами роботи проєкту будуть опубліковані тут після їх підготовки.</div>
     </div>
   </div>
   <div style="padding-bottom:48px;"></div>
@@ -648,12 +748,26 @@ __.__.202_ (підпис)</div>
      PAGE: ДЛЯ АДВОКАТІВ
 ══════════════════════════════════════════ -->
 <div id="page-lawyers" class="page-section">
-<div class="container" style="max-width:640px;">
+<div class="container" style="max-width:880px;">
   <div class="page-heading">
     <h1>Для адвокатів</h1>
     <p>Долучитись до проєкту «Адвокат+»</p>
   </div>
-  <div class="card card-pad" style="display:flex;flex-direction:column;gap:16px;">
+
+  <!-- Hero banner -->
+  <div class="dl-banner" style="margin-bottom:20px;">
+    <div>
+      <div class="dl-title">Станьте частиною проєкту «Адвокат+»</div>
+      <div class="dl-sub">Надавайте безоплатну правничу допомогу захисникам України</div>
+    </div>
+    <a href="mailto:advokatplus@unba.org" class="btn btn-primary">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Надіслати заявку
+    </a>
+  </div>
+
+  <!-- Intro -->
+  <div class="card card-pad" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">
     <p style="font-size:14px;font-weight:500;color:var(--muted);line-height:1.65;">
       Якщо ви адвокат і бажаєте долучитися до проєкту «Адвокат+» та надавати безоплатну правничу допомогу військовослужбовцям і членам їх сімей — надсилайте заявку на електронну адресу:
     </p>
@@ -664,6 +778,85 @@ __.__.202_ (підпис)</div>
       Ми розглянемо вашу кандидатуру та зв'яжемося з вами.
     </p>
   </div>
+
+  <!-- Criteria grid -->
+  <div style="margin-bottom:12px;">
+    <div class="section-label">Критерії відбору</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+    <!-- Професійні вимоги -->
+    <div class="card" style="overflow:hidden;">
+      <div style="padding:16px 20px 14px;background:rgba(26,58,138,.05);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div class="kb-icon" style="width:32px;height:32px;border-radius:8px;font-size:15px;">📋</div>
+        <h3 style="font-size:13.5px;font-weight:800;color:var(--navy);">Професійні вимоги</h3>
+      </div>
+      <div style="padding:16px 20px 20px;">
+        <ul style="font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.65;padding-left:16px;display:flex;flex-direction:column;gap:5px;">
+          <li>чинне свідоцтво про право на заняття адвокатською діяльністю</li>
+          <li>стаж адвокатської діяльності не менше 1-го року</li>
+          <li>відсутність дисциплінарних стягнень</li>
+          <li>виконання вимог підвищення професійної кваліфікації</li>
+          <li>досвід роботи у сфері військового права (підтверджується рішеннями судів у ЄДРСР)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Етичні вимоги -->
+    <div class="card" style="overflow:hidden;">
+      <div style="padding:16px 20px 14px;background:rgba(26,58,138,.05);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div class="kb-icon" style="width:32px;height:32px;border-radius:8px;font-size:15px;">⚖️</div>
+        <h3 style="font-size:13.5px;font-weight:800;color:var(--navy);">Етичні вимоги</h3>
+      </div>
+      <div style="padding:16px 20px 20px;">
+        <ul style="font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.65;padding-left:16px;display:flex;flex-direction:column;gap:5px;">
+          <li>дотримання Правил адвокатської етики</li>
+          <li>готовність працювати в умовах військової специфіки</li>
+          <li>збереження адвокатської таємниці</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+    <!-- Підготовка -->
+    <div class="card" style="overflow:hidden;">
+      <div style="padding:16px 20px 14px;background:rgba(252,195,7,.08);border-bottom:1px solid rgba(252,195,7,.2);display:flex;align-items:center;gap:10px;">
+        <div class="kb-icon" style="width:32px;height:32px;border-radius:8px;font-size:15px;background:rgba(252,195,7,.15);">🎓</div>
+        <h3 style="font-size:13.5px;font-weight:800;color:var(--dark);">Підготовка адвокатів</h3>
+      </div>
+      <div style="padding:16px 20px 20px;">
+        <p style="font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.65;">
+          Перед початком роботи у межах проєкту адвокати проходять спеціальне <strong>безкоштовне навчання</strong> з військового права на базі Вищої школи адвокатури НААУ з метою створення єдиних підходів у правозастосуванні.
+        </p>
+      </div>
+    </div>
+
+    <!-- Додаткові переваги -->
+    <div class="card" style="overflow:hidden;">
+      <div style="padding:16px 20px 14px;background:rgba(252,195,7,.08);border-bottom:1px solid rgba(252,195,7,.2);display:flex;align-items:center;gap:10px;">
+        <div class="kb-icon" style="width:32px;height:32px;border-radius:8px;font-size:15px;background:rgba(252,195,7,.15);">🌟</div>
+        <h3 style="font-size:13.5px;font-weight:800;color:var(--dark);">Додаткові переваги</h3>
+      </div>
+      <div style="padding:16px 20px 20px;">
+        <ul style="font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.65;padding-left:16px;display:flex;flex-direction:column;gap:5px;">
+          <li>статус ветерана або служба в ЗСУ та інших військових формуваннях</li>
+          <li>рекомендація від Ради адвокатів регіону</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="tip-box" style="text-align:center;padding:20px 24px;">
+    <p style="font-weight:700;font-size:13.5px;color:var(--dark);margin-bottom:8px;">Готові долучитися?</p>
+    <p style="font-size:12.5px;font-weight:500;color:var(--muted);margin-bottom:14px;">Надсилайте заявку та ставайте частиною команди «Адвокат+»</p>
+    <a href="mailto:advokatplus@unba.org" class="btn btn-navy" style="display:inline-flex;">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      advokatplus@unba.org
+    </a>
+  </div>
+
   <div style="padding-bottom:48px;"></div>
 </div>
 </div>
@@ -702,16 +895,24 @@ __.__.202_ (підпис)</div>
         <a href="https://www.facebook.com/UkrainianNationalBarAssociation/" target="_blank" rel="noopener" class="footer-soc-icon">
           <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
-        <a href="https://t.me/InfoUNBA" target="_blank" rel="noopener" class="footer-soc-icon">
-          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </a>
         <a href="https://www.youtube.com/@%D0%9D%D0%90%D0%90%D0%A3/featured" target="_blank" rel="noopener" class="footer-soc-icon">
           <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
+        <a href="https://t.me/InfoUNBA" target="_blank" rel="noopener" class="footer-soc-icon" title="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Адвокат+. Усі права захищені. Сервіс працює згідно з чинним законодавством України.</div>
+  </div>
+  <!-- Footer bottom dark stripe -->
+  <div style="background:var(--dark);padding:18px 0;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div class="footer-copy" style="color:rgba(255,255,255,.45);">© 2026 Адвокат+. Усі права захищені. Сервіс працює згідно з чинним законодавством України.</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.04em;text-transform:uppercase;">За підтримки</span>
+        <div style="width:1px;height:18px;background:rgba(255,255,255,.15);"></div>
+        <a href="https://consultant.net.ua/" target="_blank" rel="noopener"><img src="LOGO/logo_uk.svg" alt="Консультант" style="height:20px;width:auto;opacity:.8;transition:opacity .18s;"></a>
+      </div>
     </div>
   </div>
 </footer>

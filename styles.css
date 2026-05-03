@@ -355,6 +355,27 @@ body {
   object-fit: cover;
   flex-shrink: 0;
 }
+.chat-icon-badge {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.15);
+  border: 2px solid rgba(252,195,7,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 900; letter-spacing: .08em;
+  color: var(--yellow);
+  flex-shrink: 0;
+  position: relative;
+}
+.chat-icon-badge::after {
+  content: '';
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s infinite;
+}
 .chat-name { color: #fff; font-weight: 800; font-size: 14px; }
 .online-dot {
   display: inline-block;
@@ -625,27 +646,24 @@ body {
   background: var(--surface);
   border-radius: 18px;
   border: 1px solid var(--border);
-  padding: 28px 20px 22px;
+  overflow: hidden;
   text-align: center;
   transition: transform .22s, box-shadow .22s;
 }
 .team-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(15,31,92,.09); }
 .team-ava-wrap {
-  width: 80px; height: 80px;
-  margin: 0 auto 14px;
-  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   background: linear-gradient(135deg, var(--navy), var(--dark));
   display: flex; align-items: center; justify-content: center;
   font-size: 28px; font-weight: 800; color: rgba(255,255,255,.9);
-  border: 3px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 0 0 0 3px var(--yellow), 0 4px 16px rgba(252,195,7,.25);
   overflow: hidden;
 }
-.team-ava-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.team-ava-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.team-card-body { padding: 14px 16px 18px; }
 .team-name { font-size: 13px; font-weight: 800; color: var(--dark); line-height: 1.4; }
 .team-role { font-size: 11.5px; font-weight: 700; color: var(--navy); margin-top: 4px; }
-.team-org { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+.team-org { font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 500; line-height: 1.4; }
 
 /* ─── Download banner ─── */
 .dl-banner {
@@ -688,7 +706,7 @@ body {
   background: #FFFFFF;
   border-top: 3px solid var(--yellow);
   margin-top: auto;
-  padding: 40px 0 32px;
+  padding: 20px 0 0;
 }
 .footer-inner {
   max-width: 1200px;
@@ -701,9 +719,9 @@ body {
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
-  padding-bottom: 28px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 .footer-logos { display: flex; align-items: center; gap: 14px; }
 .footer-logo-plate {
@@ -800,6 +818,7 @@ body {
   .choice-grid { grid-template-columns: 1fr; }
   .kb-header { padding: 14px 16px; }
   .kb-q { font-size: 13px; }
+  #page-lawyers [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 400px) {
   .hero-block { padding: 22px 16px 20px; }

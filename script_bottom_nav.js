@@ -11,14 +11,6 @@ function showPage(page) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Mobile nav ──
-function toggleMobileNav() {
-  document.getElementById('mobile-nav').classList.toggle('open');
-}
-function closeMobileNav() {
-  document.getElementById('mobile-nav').classList.remove('open');
-}
-
 // ── Sub-tabs ──
 function showSubTab(id, btn) {
   document.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
@@ -62,7 +54,7 @@ function addMessage(text, isUser) {
     div.innerHTML = `<div class="chat-bubble-user">${text}</div>`;
   } else {
     div.className = 'chat-lawyer-row';
-    div.innerHTML = `<img src="https://i.pravatar.cc/150?img=11" alt="" class="chat-mini-av"><div class="chat-bubble-lawyer">${text}</div>`;
+    div.innerHTML = `<div class="chat-bubble-lawyer">${text}</div>`;
   }
   chatMessages.appendChild(div);
   scrollBottom();
@@ -90,7 +82,7 @@ const wizardSteps = {
 function setWizardStep(stepNum, title) {
   document.querySelectorAll('[id^="step-"]').forEach(s => s.style.display = 'none');
   document.getElementById('step-' + stepNum).style.display = 'block';
-  document.getElementById('wizard-step-num').textContent = String(stepNum).replace('a','').replace('b','');
+  document.getElementById('wizard-step-num').textContent = String(stepNum).replace(/[abc]/g, '');
   document.getElementById('wizard-step-title').textContent = title;
 }
 
@@ -139,12 +131,11 @@ function selectTopic(topic, type) {
       addMessage('Ось наші матеріали для завантаження:', false);
       setWizardStep('4b', 'Оберіть матеріал:');
     }, 900);
-  } else {
-    let reply = 'Опишіть вашу ситуацію детально, і ми підготуємо відповідь та необхідні документи.';
-    if (topic.includes('ВЛК')) reply = 'Для питань щодо ВЛК — уточніть, будь ласка, на якому етапі ви знаходитесь: направлені, проходите комісію, чи маєте рішення ВЛК?';
-    else if (topic.includes('Мобілізація')) reply = 'Уточніть, будь ласка, конкретну ситуацію: проходження служби, статус, УБД або відстрочка?';
-    else if (topic.includes('Грошове')) reply = 'Напишіть, яка саме виплата вас цікавить: бойові, за поранення, при звільненні, чи інша?';
-    setTimeout(() => { addMessage(reply, false); chatInput.focus(); }, 900);
+  } else if (type === 'knowledge') {
+    setTimeout(() => {
+      addMessage('Ось корисна інформація з нашої Бази знань:', false);
+      setWizardStep('4c', 'Корисна інформація:');
+    }, 900);
   }
 }
 
