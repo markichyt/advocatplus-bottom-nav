@@ -715,9 +715,9 @@ body {
 }
 .footer-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 32px;
   flex-wrap: wrap;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
@@ -727,7 +727,7 @@ body {
 .footer-logo-plate {
   display: flex; align-items: center;
 }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 6px 20px; flex-basis: 100%; justify-content: center; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 .footer-nav a {
   font-size: 12.5px; font-weight: 600;
   color: var(--muted);
