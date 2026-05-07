@@ -186,34 +186,59 @@
     </div>
   </div>
 
-  <!-- Military units -->
-  <div class="card card-pad">
-    <div class="section-label" style="margin-bottom:14px;">
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
-      Військові частини
+  <!-- Military units slider -->
+  <div class="card">
+    <div style="padding:24px 24px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div>
+        <div class="section-label">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+          Військові частини
+        </div>
+        <div class="section-title">Військові частини, якими опікуються адвокати</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;margin-top:4px;">
+        <button id="uPrev" class="c-arrow" aria-label="Назад">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="uNext" class="c-arrow" aria-label="Вперед">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </div>
-    <div class="section-title" style="margin-bottom:20px;">Військові частини, якими опікуються адвокати</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-      <div style="text-align:center;">
-        <div style="width:100px;height:100px;margin:0 auto 10px;border-radius:16px;overflow:hidden;border:2px solid var(--border);background:var(--bg);">
-          <img src="UNITS/3brop.png" alt="3 БрОП" style="width:100%;height:100%;object-fit:cover;">
+    <div style="padding:0 24px 24px;">
+      <div class="c-viewport">
+        <div class="c-track" id="uTrack">
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/3brop.png" alt="3 БрОП"></div>
+            <div class="u-card-name">3 БрОП</div>
+            <div class="u-card-sub">в/ч 3017 «Спартан»</div>
+          </div>
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/79odshbr.png" alt="79 ОДШБр"></div>
+            <div class="u-card-name">79 ОДШБр</div>
+            <div class="u-card-sub">в/ч А0224</div>
+          </div>
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/157ombr.png" alt="157 ОМБр"></div>
+            <div class="u-card-name">157 ОМБр</div>
+            <div class="u-card-sub">в/ч А5006</div>
+          </div>
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/3brop.png" alt="3 БрОП"></div>
+            <div class="u-card-name">3 БрОП</div>
+            <div class="u-card-sub">в/ч 3017 «Спартан»</div>
+          </div>
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/79odshbr.png" alt="79 ОДШБр"></div>
+            <div class="u-card-name">79 ОДШБр</div>
+            <div class="u-card-sub">в/ч А0224</div>
+          </div>
+          <div class="u-card">
+            <div class="u-card-img"><img src="UNITS/157ombr.png" alt="157 ОМБр"></div>
+            <div class="u-card-name">157 ОМБр</div>
+            <div class="u-card-sub">в/ч А5006</div>
+          </div>
         </div>
-        <div style="font-size:13px;font-weight:800;color:var(--dark);line-height:1.35;">3 БрОП</div>
-        <div style="font-size:11.5px;font-weight:500;color:var(--muted);margin-top:2px;">в/ч 3017 «Спартан»</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="width:100px;height:100px;margin:0 auto 10px;border-radius:16px;overflow:hidden;border:2px solid var(--border);background:var(--bg);">
-          <img src="UNITS/79odshbr.png" alt="79 ОДШБр" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div style="font-size:13px;font-weight:800;color:var(--dark);line-height:1.35;">79 ОДШБр</div>
-        <div style="font-size:11.5px;font-weight:500;color:var(--muted);margin-top:2px;">в/ч А0224</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="width:100px;height:100px;margin:0 auto 10px;border-radius:16px;overflow:hidden;border:2px solid var(--border);background:var(--bg);">
-          <img src="UNITS/157ombr.png" alt="157 ОМБр" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div style="font-size:13px;font-weight:800;color:var(--dark);line-height:1.35;">157 ОМБр</div>
-        <div style="font-size:11.5px;font-weight:500;color:var(--muted);margin-top:2px;">в/ч А5006</div>
       </div>
     </div>
   </div>

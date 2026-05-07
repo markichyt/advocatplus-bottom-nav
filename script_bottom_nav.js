@@ -164,6 +164,32 @@ function submitContact() {
   }, 1200);
 }
 
+// ── Units slider ──
+(function () {
+  const track = document.getElementById('uTrack');
+  const btnPrev = document.getElementById('uPrev');
+  const btnNext = document.getElementById('uNext');
+  if (!track) return;
+  const CARD_W = 150 + 16;
+  let current = 0;
+  function getVisible() { return Math.max(1, Math.floor(track.parentElement.offsetWidth / CARD_W)); }
+  function total() { return track.children.length; }
+  function clamp(v) { return Math.min(Math.max(0, v), Math.max(0, total() - getVisible())); }
+  function go(delta) {
+    current = clamp(current + delta);
+    track.style.transform = `translateX(-${current * CARD_W}px)`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current >= total() - getVisible();
+  }
+  btnPrev.addEventListener('click', () => go(-1));
+  btnNext.addEventListener('click', () => go(1));
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => { if (Math.abs(e.changedTouches[0].clientX - startX) > 40) go(e.changedTouches[0].clientX < startX ? 1 : -1); }, { passive: true });
+  window.addEventListener('resize', () => go(0));
+  go(0);
+})();
+
 // ── Consultant slider ──
 (function () {
   const track = document.getElementById('cTrack');
