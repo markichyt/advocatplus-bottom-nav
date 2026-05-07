@@ -11,6 +11,19 @@ function showPage(page) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ── News article navigation ──
+function showNewsArticle(articleId) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + articleId).classList.add('active');
+  const navEl = document.getElementById('nav-news');
+  if (navEl) navEl.classList.add('active');
+  const bnavEl = document.getElementById('bnav-news');
+  if (bnavEl) bnavEl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // ── Sub-tabs ──
 function showSubTab(id, btn) {
   document.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
