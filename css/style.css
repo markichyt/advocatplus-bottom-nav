@@ -666,14 +666,109 @@
     /* Hero content sits above the bg image */
     .vip-hero .container { position: relative; z-index: 2; }
 
-    /* Soft dark overlay so the white text stays readable on the photo */
+    /* Stronger dark overlay — the new hero photo is brighter than the previous
+       courthouse image, so a heavier gradient is needed to match the dark mood
+       and keep white text/UI elements legible. */
     .vip-hero .bg-block::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 100%);
+        background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.90) 100%);
     }
 }
+
+/* "Claim Profile" rendered as a plain inline link instead of a green CTA button. */
+.vip-hero .connect .uc-claim-link {
+    align-self: center;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 4px;
+}
+.vip-hero .connect .uc-claim-link:hover { color: #cfe5f7; }
+
+/* Removal request modal — opened by clicking "Request Removal" */
+.uc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+.uc-modal[hidden] { display: none; }
+.uc-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    animation: uc-modal-fade 0.18s ease-out;
+}
+.uc-modal__dialog {
+    position: relative;
+    background: #fff;
+    color: #1a1a1a;
+    padding: 40px 32px 32px;
+    border-radius: 12px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    animation: uc-modal-pop 0.2s cubic-bezier(.2, .9, .3, 1);
+}
+.uc-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: 0;
+    font-size: 30px;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    padding: 4px 10px;
+}
+.uc-modal__close:hover { color: #1a1a1a; }
+.uc-modal__title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1.25;
+}
+.uc-modal__hint {
+    font-size: 15px;
+    color: #666;
+    margin: 0 0 20px;
+    line-height: 1.4;
+}
+.uc-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.uc-modal__input {
+    padding: 14px 16px;
+    border: 1px solid #d0d6de;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.uc-modal__input:focus {
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+}
+.uc-modal__done {
+    margin: 8px 0 0;
+    color: #1a8033;
+    font-weight: 500;
+    text-align: center;
+}
+@keyframes uc-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes uc-modal-pop  { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
 /* Align section headings — main.css applies different paddings to
    .info-sec (none) vs .review .review-top (20px). Force both flush left

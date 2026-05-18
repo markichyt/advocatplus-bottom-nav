@@ -307,8 +307,8 @@
                     </ul>
 
                     <div class="connect">
-                        <a href="#claim" class="blue-btn blue-btn--green" role="button">Claim Profile</a>
-                        <a href="#remove" class="blue-btn blue-btn--white" role="button">Request Removal</a>
+                        <a href="#claim" class="uc-claim-link">Claim Profile</a>
+                        <a href="#remove" class="blue-btn blue-btn--white" role="button" data-open="removalModal">Request Removal</a>
                     </div>
                 </div>
                 <div class="image-col">
@@ -1428,6 +1428,46 @@
     <script src="./images/profileVerifiedPro.js"></script><iframe id="_hjSafeContext_80908691" title="_hjSafeContext" tabindex="-1" aria-hidden="true" src="./images/saved_resource.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe>
     
             
+
+    <!-- Removal request modal -->
+    <div id="removalModal" class="uc-modal" hidden>
+        <div class="uc-modal__backdrop" data-close></div>
+        <div class="uc-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="removalModalTitle">
+            <button type="button" class="uc-modal__close" data-close aria-label="Close">&times;</button>
+            <h3 id="removalModalTitle" class="uc-modal__title">Request Profile Removal</h3>
+            <p class="uc-modal__hint">Enter your email to request removal of this profile.</p>
+            <form class="uc-modal__form" data-removal-form>
+                <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" class="uc-modal__input">
+                <button type="submit" class="blue-btn blue-btn--green">Send request</button>
+            </form>
+            <p class="uc-modal__done" hidden>Thank you. We will contact you shortly.</p>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var modal = document.getElementById('removalModal');
+        if (!modal) return;
+        var form = modal.querySelector('[data-removal-form]');
+        var done = modal.querySelector('.uc-modal__done');
+
+        function open()  { modal.hidden = false; document.body.style.overflow = 'hidden'; }
+        function close() { modal.hidden = true;  document.body.style.overflow = ''; form.hidden = false; done.hidden = true; form.reset(); }
+
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('[data-open="removalModal"]')) { e.preventDefault(); open(); }
+            else if (e.target.closest('[data-close]') && modal.contains(e.target)) close();
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            // TODO: wire up to backend endpoint
+            form.hidden = true;
+            done.hidden = false;
+        });
+    })();
+    </script>
 
     <script src="./js/script.js"></script>
 </body></html>
