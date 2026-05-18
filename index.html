@@ -24,20 +24,75 @@
 
     <meta property="og:title" content="Matthew D Schele — Licensed Attorney in Los Angeles, CA">
     <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://markichyt.github.io/advocatplus-bottom-nav/">
+    <meta property="profile:first_name" content="Matthew">
+    <meta property="profile:last_name" content="Schele">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Matthew D Schele — Licensed Attorney in Los Angeles, CA">
+
+    <link rel="canonical" href="https://markichyt.github.io/advocatplus-bottom-nav/">
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Matthew D Schele",
-        "jobTitle": "Licensed Attorney",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Los Angeles",
-            "addressRegion": "CA",
-            "addressCountry": "US"
-        },
-        "description": "Public attorney profile generated from California State Bar public records."
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://markichyt.github.io/advocatplus-bottom-nav/#person",
+                "name": "Matthew D Schele",
+                "givenName": "Matthew",
+                "familyName": "Schele",
+                "jobTitle": "Licensed Attorney",
+                "description": "Licensed attorney in Los Angeles, California, registered with the State Bar of California for 22 years.",
+                "url": "https://markichyt.github.io/advocatplus-bottom-nav/",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "2121 Avenue of the Stars #30",
+                    "addressLocality": "Los Angeles",
+                    "addressRegion": "CA",
+                    "postalCode": "90067",
+                    "addressCountry": "US"
+                },
+                "memberOf": {
+                    "@type": "Organization",
+                    "name": "State Bar of California",
+                    "url": "https://www.calbar.ca.gov/"
+                },
+                "worksFor": { "@id": "https://markichyt.github.io/advocatplus-bottom-nav/#legalservice" }
+            },
+            {
+                "@type": "LegalService",
+                "@id": "https://markichyt.github.io/advocatplus-bottom-nav/#legalservice",
+                "name": "Matthew D Schele, Attorney at Law",
+                "founder": { "@id": "https://markichyt.github.io/advocatplus-bottom-nav/#person" },
+                "url": "https://markichyt.github.io/advocatplus-bottom-nav/",
+                "areaServed": {
+                    "@type": "City",
+                    "name": "Los Angeles",
+                    "containedInPlace": { "@type": "State", "name": "California" }
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "2121 Avenue of the Stars #30",
+                    "addressLocality": "Los Angeles",
+                    "addressRegion": "CA",
+                    "postalCode": "90067",
+                    "addressCountry": "US"
+                },
+                "serviceType": "Legal services",
+                "knowsAbout": ["Law", "Legal advice", "California state law"]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    { "@type": "Question", "name": "Why does this attorney profile exist?", "acceptedAnswer": { "@type": "Answer", "text": "This page organizes publicly available bar-registry information in a structured, search-friendly format to help attorneys maintain accurate public visibility." } },
+                    { "@type": "Question", "name": "Is this an official bar website?", "acceptedAnswer": { "@type": "Answer", "text": "No. This is not an official State Bar website. It is an independent informational directory that uses only factual public data." } },
+                    { "@type": "Question", "name": "How can I update or remove this profile?", "acceptedAnswer": { "@type": "Answer", "text": "If you are the attorney named here, click Claim Profile to verify your identity and update your information, or use Request Removal." } },
+                    { "@type": "Question", "name": "How is the data on this page sourced?", "acceptedAnswer": { "@type": "Answer", "text": "We use only factual items from public bar records — name, license status, year of admission, bar number when available, and city/state." } },
+                    { "@type": "Question", "name": "Will my contact information appear here?", "acceptedAnswer": { "@type": "Answer", "text": "Email, phone, and personal photos are never collected automatically. They appear only after you claim the profile and add them yourself." } }
+                ]
+            }
+        ]
     }
     </script>
 </head>
@@ -293,6 +348,7 @@
                     <div class="pro">LICENSED</div>
                     <div class="position">Licensed Attorney</div>
                     <h1>Matthew D Schele</h1>
+                    <p class="visually-hidden uc-seo-lead">Matthew D Schele is a Licensed Attorney based in Los Angeles, California, registered with the State Bar of California for 22 years.</p>
                     <div class="location">
                         <img src="./images/map-marker-white.svg" alt="">
                         Los Angeles, CA · State Bar of California
