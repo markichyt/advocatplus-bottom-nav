@@ -677,6 +677,58 @@
     }
 }
 
+/* ============================================================
+   Location section (Google Maps embed)
+   Light section between review-block (light) and seo-content.dark-sec.
+   ============================================================ */
+.uc-location-section {
+    padding: 64px 0;
+    background: #ffffff;
+    color: #1a1a1a;
+}
+.uc-location-section .line-title {
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+.uc-location-section__address {
+    font-size: 16px;
+    line-height: 1.55;
+    color: #4a5563;
+    margin: 0 0 24px;
+    max-width: 720px;
+}
+.uc-location-section__address strong { color: #1a1a1a; }
+.uc-location-section__map {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.10);
+    background: #e5eaef;
+}
+.uc-location-section__map iframe {
+    width: 100%;
+    display: block;
+    border: 0;
+    aspect-ratio: 16 / 9;
+    max-height: 480px;
+}
+.uc-location-section__hint {
+    margin: 14px 0 0;
+    font-size: 14px;
+    text-align: right;
+}
+.uc-location-section__hint a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+.uc-location-section__hint a:hover { text-decoration: underline; }
+@media (max-width: 720px) {
+    .uc-location-section { padding: 40px 0; }
+    .uc-location-section__map iframe { aspect-ratio: 4 / 3; max-height: 360px; }
+    .uc-location-section__hint { text-align: left; }
+}
+
 /* Hide visually but keep accessible to crawlers and screen readers.
    Used for the natural-language SEO lead paragraph in hero. */
 .visually-hidden {
