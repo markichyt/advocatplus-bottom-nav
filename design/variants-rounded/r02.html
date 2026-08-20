@@ -1,0 +1,1460 @@
+<!-- ============================================================
+     Концепт №02 «Сплит»
+     Идея: hero в две колонки — слева H1, подводка и крупная форма
+     столбиком, справа «живое доказательство»: композиция из реальных
+     контентных карточек (Top-1 консультант, мини-отзыв, чип
+     «1200+ verified specialists»), смещённых по вертикали и появляющихся
+     каскадом. Дальше страница идёт на 12-колоночной сетке: заголовок
+     секции слева (sticky), контент справа. Тёмные дозы — отзывы и футер.
+
+     СКРУГЛЁННАЯ ВЕРСИЯ (rounded): та же композиция, контент, цвета, шрифты
+     и анимации, что и в v02 — изменена только геометрия углов.
+     Шкала радиусов: 12px крупные блоки / 8px кнопки и поля / 6px бейджи;
+     точка-индикатор чата — круг.
+     ============================================================ -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R02 · Сплит — Consultant redesign (rounded)</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+/* ================= Шкала скруглений (rounded) =================
+   Локальный override поверх tokens.css: строгость Apple сохраняется,
+   углы просто мягче. Никаких pill-кнопок. */
+:root {
+  --radius: 12px;    /* крупные блоки: карточки секций, панели, hero-карточки,
+                        обложки, медиа-боксы, рамка карты, модальные блоки */
+  --radius-sm: 8px;  /* кнопки, поля ввода, селекты, поиск, плитки иконок,
+                        мелкие карточки внутри карточек */
+  --radius-xs: 6px;  /* бейджи PREMIUM, счётчики Top N, теги */
+}
+
+/* ================= Базовое ================= */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+main { display: block; }
+section { padding: var(--section-pad) 0; }
+a { text-decoration: none; }
+button { font-family: var(--font); }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+h1 { font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.015em; }
+h2 { font-size: var(--fs-h2); font-weight: 600; letter-spacing: -0.01em; }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+
+.kicker {
+  display: inline-block; margin: 0 0 12px;
+  font-size: var(--fs-small); font-weight: 600; color: var(--brand);
+  letter-spacing: 0.04em;
+}
+.muted { color: var(--text-soft); }
+
+/* 12-колоночная сетка секций: заголовок слева, контент справа */
+.sec-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); align-items: start; }
+.sec-aside { grid-column: 1 / span 4; position: sticky; top: 104px; }
+.sec-aside p { margin: 14px 0 0; color: var(--text-soft); max-width: 34ch; }
+.sec-body { grid-column: 5 / span 8; min-width: 0; }
+.sec-head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--gap); flex-wrap: wrap; margin-bottom: 40px; }
+
+/* Кнопки: один синий на всё */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  font-weight: 600; font-size: var(--fs-body); line-height: 1.2;
+  padding: 14px 26px; cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+              border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease),
+              box-shadow var(--t-fast) var(--ease);
+}
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-hover); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(19,151,214,0.28); }
+.btn-primary:active { transform: translateY(0); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--ink); transform: translateY(-1px); }
+.btn-lg { padding: 17px 30px; font-size: 18px; }
+.btn-block { width: 100%; }
+
+.icon { width: 20px; height: 20px; flex: none; }
+.icon-sm { width: 16px; height: 16px; flex: none; }
+
+/* Ссылка-стрелка */
+.arrow-link { display: inline-flex; align-items: center; gap: 8px; color: var(--brand); font-weight: 600; }
+.arrow-link .icon-sm { transition: transform var(--t-fast) var(--ease); }
+.arrow-link:hover .icon-sm { transform: translateX(4px); }
+
+/* Reveal + hover на одном элементе: transform быстрее, opacity мягче */
+.card-h[data-reveal] {
+  transition: opacity var(--t-reveal) var(--ease), transform var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+}
+
+/* ================= Шапка ================= */
+.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(255,255,255,0.86);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; gap: 28px; height: 72px; }
+.logo { display: inline-flex; align-items: center; flex: none; }
+.logo img { height: 26px; width: auto; }
+
+.main-nav { display: flex; align-items: center; gap: 26px; margin: 0 auto; }
+.main-nav a {
+  position: relative; font-size: 15px; font-weight: 500; color: var(--ink);
+  padding: 6px 0; white-space: nowrap;
+}
+.main-nav a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+  background: var(--brand); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t-med) var(--ease);
+}
+.main-nav a:hover::after, .main-nav a.is-active::after { transform: scaleX(1); }
+
+.header-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.search { display: flex; align-items: center; }
+.search input {
+  width: 0; opacity: 0; padding: 8px 0; margin-right: 0;
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  font: inherit; font-size: 14px; color: var(--ink); background: var(--bg);
+  transition: width var(--t-med) var(--ease), opacity var(--t-med) var(--ease),
+              padding var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+}
+.search.open input { width: 190px; opacity: 1; padding: 8px 12px; margin-right: 8px; border-color: var(--border); }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border: 1px solid transparent; border-radius: var(--radius-sm);
+  background: transparent; color: var(--ink); cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.icon-btn:hover { background: var(--bg-soft); border-color: var(--border); }
+.lang-btn {
+  border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent;
+  padding: 8px 12px; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+.lang-btn:hover { border-color: var(--ink); }
+.login-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 8px 16px; font-size: 14px; font-weight: 600; color: var(--ink);
+  transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.login-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+/* Бургер */
+.burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent; cursor: pointer; }
+.burger span { display: block; height: 2px; width: 100%; background: var(--ink); transition: transform var(--t-med) var(--ease), opacity var(--t-fast) var(--ease); }
+body.menu-open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body.menu-open .burger span:nth-child(2) { opacity: 0; }
+body.menu-open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed; inset: 72px 0 0 0; z-index: 55; background: var(--bg);
+  padding: 24px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 8px;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease), visibility var(--t-med);
+}
+body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; }
+body.menu-open { overflow: hidden; }
+.mobile-menu .m-search { display: flex; gap: 8px; margin-bottom: 12px; }
+.mobile-menu .m-search input {
+  flex: 1; padding: 13px 14px; font: inherit; font-size: 16px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+}
+.mobile-menu nav { display: flex; flex-direction: column; }
+.mobile-menu nav a {
+  padding: 15px 4px; font-size: 20px; font-weight: 600; color: var(--ink);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu nav a:hover { color: var(--brand); }
+.mobile-menu .m-bottom { display: flex; gap: 10px; margin-top: 18px; }
+
+/* ================= Hero (Сплит) ================= */
+.hero { padding: clamp(48px, 6vw, 88px) 0 var(--section-pad); }
+.hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); align-items: center; }
+.hero-left { grid-column: 1 / span 6; }
+.hero-left h1 { max-width: 15ch; }
+.hero-lead { margin: 20px 0 32px; font-size: 19px; color: var(--text-soft); max-width: 44ch; }
+
+.hero-form { display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
+.hero-form select, .hero-form input {
+  width: 100%; padding: 16px 16px; font: inherit; font-size: 17px; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+  appearance: none;
+}
+.hero-form select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231B1B1B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+  padding-right: 42px; cursor: pointer;
+}
+.hero-form select:focus, .hero-form input:focus,
+.q-phone input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(19,151,214,0.14); outline: none; }
+.form-error { margin: 0; font-size: var(--fs-small); font-weight: 500; color: #C62828; }
+.form-success { display: flex; align-items: center; gap: 10px; margin: 4px 0 0; font-weight: 600; color: var(--ink); }
+.form-success .icon { color: var(--brand); }
+
+/* Правая композиция карточек */
+.hero-right { grid-column: 7 / span 6; }
+.hero-art { position: relative; padding: 16px 0 8px; }
+.hs-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 14px 40px rgba(27,27,27,0.08);
+  overflow: hidden; /* чтобы фото не торчало за скруглением карточки */
+}
+.hs-consultant { width: min(340px, 82%); margin-left: auto; position: relative; z-index: 1; }
+.hs-consultant .hs-photo { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--bg-soft); }
+.hs-consultant .hs-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.hs-consultant .hs-body { padding: 16px 18px 18px; }
+.hs-consultant .cons-meta-row { margin-top: 4px; }
+.hs-review { width: min(330px, 88%); margin-top: -52px; position: relative; z-index: 2; padding: 18px 20px; }
+.hs-review .r-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.hs-review .r-name { font-weight: 600; }
+.hs-review .r-date { font-size: var(--fs-small); color: var(--text-soft); }
+.hs-review p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text-soft); }
+.hs-chip {
+  position: absolute; top: -2px; left: 0; z-index: 3;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff; border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: var(--fs-small); font-weight: 600;
+  box-shadow: 0 10px 26px rgba(27,27,27,0.18);
+}
+.hs-chip .icon-sm { color: var(--brand); }
+
+/* Бейджи и рейтинг консультантов */
+.badge-premium {
+  display: inline-block; padding: 4px 8px; border-radius: var(--radius-xs);
+  background: var(--ink); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+}
+.badge-top { display: inline-block; padding: 4px 8px; border-radius: var(--radius-xs); background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-soft); font-size: 11px; font-weight: 600; }
+.rating { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--ink); }
+.rating .icon-sm { color: var(--brand); }
+.cons-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cons-name { margin: 10px 0 2px; font-size: 18px; font-weight: 600; color: var(--ink); }
+.cons-role { margin: 0; font-size: var(--fs-small); color: var(--text-soft); }
+
+/* ================= How We Work ================= */
+.steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+.step {
+  padding: 26px 26px 28px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg);
+}
+.step:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(27,27,27,0.07); }
+.step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.step-icon {
+  width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.step-icon svg { width: 26px; height: 26px; color: var(--brand); }
+.step-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.step-num { font-size: var(--fs-small); font-weight: 700; color: var(--brand); }
+.step h3 { margin-bottom: 8px; }
+.step p { margin: 0; font-size: 15px; color: var(--text-soft); }
+
+/* ================= Offer (3 карточки) ================= */
+.offer { background: var(--bg-soft); }
+.offer-col { display: flex; flex-direction: column; gap: var(--gap); }
+.offer-card {
+  display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: center;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 30px 32px;
+}
+.offer-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(27,27,27,0.08); border-color: #d8dbe2; }
+.offer-card h3 { font-size: 22px; }
+.offer-card h3 a { color: var(--ink); transition: color var(--t-fast) var(--ease); }
+.offer-card h3 a:hover { color: var(--brand); }
+.offer-card > div > p { margin: 10px 0 16px; color: var(--text-soft); font-size: 15px; max-width: 52ch; }
+.offer-bullets { list-style: none; margin: 0 0 18px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; }
+.offer-bullets li { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; font-weight: 500; }
+.offer-bullets .icon-sm { color: var(--brand); margin-top: 3px; }
+.offer-img { align-self: stretch; min-height: 190px; display: flex; align-items: center; justify-content: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; }
+.offer-img svg { width: 64px; height: 64px; color: var(--brand); }
+.offer-img img { display: block; max-width: 100%; max-height: 264px; object-fit: contain; border-radius: var(--radius-xs); }
+
+/* ================= Top 10 ================= */
+.cons-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.cons-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.cons-card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(27,27,27,0.10); border-color: #d8dbe2; }
+.cons-photo { aspect-ratio: 1 / 1; overflow: hidden; background: var(--bg-soft); position: relative; }
+.cons-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.cons-photo .badge-premium { position: absolute; top: 10px; left: 10px; }
+.cons-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.cons-body .cons-meta-row { justify-content: space-between; }
+.cons-card .cons-name { margin: 8px 0 2px; font-size: 16px; }
+.cons-card a.cons-link { color: inherit; }
+.cons-card a.cons-link:hover .cons-name { color: var(--brand); }
+
+/* ================= Reviews (тёмная) ================= */
+.reviews { background: var(--dark-bg); color: var(--dark-text); }
+.reviews h2 { color: var(--dark-text); }
+.reviews .sec-head-row { margin-bottom: 36px; }
+.slider-nav { display: flex; gap: 10px; }
+.slider-btn {
+  width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--dark-border); border-radius: var(--radius-sm);
+  color: var(--dark-text); cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+.slider-btn:hover { border-color: var(--brand); background: rgba(19,151,214,0.12); }
+.slider-btn:disabled { opacity: 0.35; cursor: default; }
+.slider-btn .flip { transform: rotate(180deg); }
+.rev-track {
+  display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--dark-border) transparent;
+}
+.rev-card {
+  flex: 0 0 clamp(280px, 26vw, 360px); scroll-snap-align: start;
+  background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: var(--radius);
+  padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 12px;
+}
+.rev-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.rev-name { font-weight: 600; font-size: 17px; }
+.rev-date { font-size: var(--fs-small); color: var(--dark-text-soft); }
+.rev-card p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--dark-text-soft); }
+.rev-stars { display: flex; gap: 3px; color: var(--brand); }
+
+/* ================= Quiz ================= */
+.quiz { background: var(--bg-soft); }
+.quiz-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: clamp(28px, 4vw, 48px); max-width: 640px;
+}
+.q-progress-row { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.q-back {
+  width: 38px; height: 38px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--ink); cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease);
+}
+.q-back:hover { border-color: var(--ink); }
+.q-back .flip { transform: rotate(180deg); }
+.q-progress { flex: 1; height: 4px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
+.q-progress span { border-radius: 999px; }
+.q-progress span { display: block; height: 100%; width: 0; background: var(--brand); transition: width var(--t-med) var(--ease); }
+.q-step-label { font-size: var(--fs-small); font-weight: 600; color: var(--text-soft); white-space: nowrap; }
+.q-screen { border: 0; margin: 0; padding: 0; }
+.q-question { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; margin: 0 0 26px; }
+.q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.q-opt {
+  padding: 18px; font-size: 17px; font-weight: 600; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease),
+              color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.q-opt:hover { border-color: var(--brand); color: var(--brand); transform: translateY(-1px); }
+.q-phone { display: flex; flex-direction: column; gap: 12px; }
+.q-phone input {
+  width: 100%; padding: 16px; font: inherit; font-size: 17px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+}
+.q-start { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.q-done { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.q-done .icon { width: 40px; height: 40px; color: var(--brand); }
+.q-done p { margin: 0; font-size: 18px; font-weight: 600; }
+
+/* ================= About + новости ================= */
+.about-text { font-size: 18px; line-height: 1.7; margin: 0; }
+.news-wrap { margin-top: 56px; }
+.news-head { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+.news-head .slider-btn { color: var(--ink); border-color: var(--border); }
+.news-head .slider-btn:hover { border-color: var(--brand); background: rgba(19,151,214,0.08); }
+.news-track { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: thin; }
+.news-card {
+  flex: 0 0 clamp(240px, 22vw, 300px); scroll-snap-align: start;
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg);
+  overflow: hidden; display: flex; flex-direction: column; color: inherit;
+}
+.news-card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(27,27,27,0.09); border-color: #d8dbe2; }
+.news-img { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-soft); }
+.news-img img { width: 100%; height: 100%; object-fit: cover; }
+.news-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.news-date { font-size: var(--fs-small); color: var(--text-soft); }
+.news-title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
+.news-card:hover .news-title { color: var(--brand); }
+.news-card.no-img .news-body { padding-top: 24px; gap: 12px; }
+.news-card.no-img .news-title { font-size: 18px; }
+.news-card.no-img .arrow-link { margin-top: auto; font-size: 14px; }
+
+/* ================= Trust / контакты ================= */
+.trust { background: var(--bg-soft); }
+.trust-lead { font-size: 19px; line-height: 1.65; margin: 14px 0 0; color: var(--text-soft); max-width: 36ch; }
+.trust-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--gap); align-items: stretch; }
+.admin-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 30px 32px; display: flex; flex-direction: column; gap: 20px;
+}
+.admin-card h2 { font-size: 24px; }
+.admin-row { display: flex; gap: 14px; align-items: flex-start; }
+.admin-row .icon { color: var(--brand); margin-top: 2px; }
+.admin-row .lbl { display: block; font-size: var(--fs-small); color: var(--text-soft); margin-bottom: 2px; }
+.admin-row a, .admin-row span.val { font-weight: 500; color: var(--ink); }
+.admin-row a:hover { color: var(--brand); }
+.admin-card .btn { align-self: flex-start; margin-top: 6px; }
+.map-frame { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg); min-height: 320px; }
+.map-frame iframe { display: block; width: 100%; height: 100%; min-height: 320px; border: 0; border-radius: var(--radius); }
+
+/* ================= Футер (тёмный) ================= */
+.site-footer { background: var(--dark-bg); color: var(--dark-text-soft); padding: 72px 0 40px; font-size: 15px; }
+.site-footer a { color: var(--dark-text-soft); transition: color var(--t-fast) var(--ease); }
+.site-footer a:hover { color: #fff; }
+.f-top { display: grid; grid-template-columns: repeat(12, 1fr); gap: 36px var(--gap); padding-bottom: 44px; border-bottom: 1px solid var(--dark-border); }
+.f-brand { grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 18px; }
+.f-brand .f-logo img { height: 30px; width: auto; }
+.f-promo { margin: 0; color: var(--dark-text); font-weight: 500; max-width: 30ch; }
+.f-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+.f-badges img { height: 42px; width: auto; }
+.f-socials { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+.f-col h4 { color: #fff; font-size: 15px; font-weight: 600; margin: 0 0 14px; }
+.f-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.f-nav { grid-column: 5 / span 2; }
+.f-legal { grid-column: 7 / span 2; }
+.f-mapcol { grid-column: 9 / span 4; }
+.f-map-ph {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  min-height: 150px; background: var(--dark-card); border: 1px solid var(--dark-border);
+  border-radius: var(--radius); color: var(--dark-text-soft); font-size: 14px; text-align: center; padding: 18px;
+}
+.f-map-ph .icon { color: var(--brand); }
+.f-map { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.f-map-note { display: block; margin-top: 10px; font-size: 13px; color: var(--dark-text-soft); }
+.f-services { padding: 36px 0; border-bottom: 1px solid var(--dark-border); }
+.f-services h4 { color: #fff; font-size: 15px; font-weight: 600; margin: 0 0 16px; }
+.f-services ul { list-style: none; margin: 0; padding: 0; columns: 3; column-gap: var(--gap); }
+.f-services li { break-inside: avoid; margin-bottom: 10px; font-size: 14px; }
+.f-bottom { padding-top: 28px; }
+.f-disclaimer { margin: 0 0 18px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.55); }
+
+/* ================= Плавающие элементы ================= */
+.chat-fab {
+  position: fixed; right: 22px; bottom: 22px; z-index: 70;
+  width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;
+  background: var(--brand); color: #fff; border: 0; border-radius: var(--radius); cursor: pointer;
+  box-shadow: 0 10px 26px rgba(19,151,214,0.4);
+  transition: background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.chat-fab:hover { background: var(--brand-hover); transform: translateY(-2px); }
+.chat-fab .dot { position: absolute; top: -3px; right: -3px; width: 10px; height: 10px; background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .chat-fab .dot { animation: fab-pulse 2.4s infinite; }
+  @keyframes fab-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+    70% { box-shadow: 0 0 0 9px rgba(255,255,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  }
+}
+.chat-panel {
+  position: fixed; right: 22px; bottom: 88px; z-index: 70; width: min(320px, calc(100vw - 44px));
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(27,27,27,0.18); padding: 20px;
+}
+.chat-panel p { margin: 0 0 14px; font-size: 15px; line-height: 1.55; }
+.cookie-banner {
+  position: fixed; left: 22px; bottom: 22px; z-index: 70; width: min(360px, calc(100vw - 44px));
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(27,27,27,0.16); padding: 20px;
+}
+.cookie-banner h4 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+.cookie-banner p { margin: 0 0 14px; font-size: 14px; color: var(--text-soft); }
+.cookie-actions { display: flex; gap: 10px; }
+.cookie-actions .btn { padding: 10px 18px; font-size: 14px; }
+
+/* ================= Адаптив ================= */
+@media (max-width: 1100px) {
+  .cons-grid { grid-template-columns: repeat(3, 1fr); }
+  .f-services ul { columns: 2; }
+}
+@media (max-width: 1024px) {
+  .main-nav { display: none; }
+  .burger { display: flex; }
+  .search { display: none; }
+  .login-btn, .lang-btn { display: none; }
+  .sec-aside { grid-column: 1 / -1; position: static; }
+  .sec-body { grid-column: 1 / -1; }
+  .hero-left { grid-column: 1 / span 7; }
+  .hero-right { grid-column: 8 / span 5; }
+  .offer-card { grid-template-columns: 1fr 220px; }
+  .f-brand { grid-column: 1 / span 6; }
+  .f-nav { grid-column: 7 / span 3; }
+  .f-legal { grid-column: 10 / span 3; }
+  .f-mapcol { grid-column: 1 / -1; max-width: 420px; }
+}
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-left, .hero-right { grid-column: 1 / -1; }
+  .hero-art { margin-top: 32px; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .offer-card { grid-template-columns: 1fr; padding: 26px; }
+  .offer-img { order: -1; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .cons-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+  .header-inner { height: 64px; gap: 14px; }
+  .mobile-menu { inset: 64px 0 0 0; }
+  .cons-grid { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  .cons-card { flex: 0 0 220px; scroll-snap-align: start; }
+  .offer-bullets { grid-template-columns: 1fr; }
+  .q-opts { grid-template-columns: 1fr; }
+  .hs-consultant { width: 100%; margin-left: 0; }
+  .hs-review { width: 92%; margin-left: auto; margin-top: -36px; }
+  .hs-chip { position: static; display: inline-flex; margin-bottom: 14px; }
+  .f-services ul { columns: 1; }
+  .cookie-banner { left: 12px; bottom: 12px; }
+  .chat-fab { right: 12px; bottom: 12px; }
+  .chat-panel { right: 12px; bottom: 76px; }
+}
+</style>
+<noscript><style>[data-reveal]{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<!-- SVG-иконки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ic-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 20c1.8-3.2 4.5-4.8 8-4.8s6.2 1.6 8 4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-chat" viewBox="0 0 24 24"><path fill="currentColor" d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9.4L4 21.4V6a2 2 0 0 1 1-2z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M12 21s-7-5.4-7-11a7 7 0 1 1 14 0c0 5.6-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 6.5L12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24"><path d="M5.5 3.5h3l1.7 4.2-2.1 1.7a13 13 0 0 0 6.5 6.5l1.7-2.1 4.2 1.7v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.5 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 2.8l7.5 2.8v6c0 5-3.2 8.4-7.5 9.9-4.3-1.5-7.5-4.9-7.5-9.9v-6L12 2.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.8 12l2.2 2.2 4.2-4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><path d="M6.5 14.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-percent" viewBox="0 0 24 24"><path d="M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7.2" cy="7.2" r="2.7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.8" cy="16.8" r="2.7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="ic-doc" viewBox="0 0 24 24"><path d="M7 2.8h7.2L19 7.6V21.2H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 13h6M10 16.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- ================= Шапка ================= -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="https://consultantlm.com" aria-label="CONSULTANT Legal Marketplace — home">
+      <img src="../assets/img/logo_dark.svg" alt="CONSULTANT Legal Marketplace">
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="https://consultantlm.com/services">Services</a>
+      <a href="https://consultantlm.com/rating">Consultants</a>
+      <a href="https://consultantlm.com/documents">Documents</a>
+      <a href="https://consultantlm.com/consultations">Blog</a>
+      <a href="https://consultantlm.com/vacancies">Vacancies</a>
+      <a href="https://consultantlm.com/about-us">About us</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search" id="headerSearch">
+        <input type="search" placeholder="Search" aria-label="Search">
+        <button class="icon-btn" id="searchToggle" aria-label="Open search" aria-expanded="false">
+          <svg class="icon"><use href="#ic-search"/></svg>
+        </button>
+      </div>
+      <a class="login-btn" href="https://consultantlm.com/account/login">
+        <svg class="icon-sm"><use href="#ic-user"/></svg>Login
+      </a>
+      <button class="lang-btn" type="button" aria-label="Language: English">EN</button>
+      <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Мобильное меню -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="m-search">
+    <input type="search" placeholder="Search" aria-label="Search">
+    <button class="icon-btn" aria-label="Search"><svg class="icon"><use href="#ic-search"/></svg></button>
+  </div>
+  <nav aria-label="Mobile navigation">
+    <a href="https://consultantlm.com/services">Services</a>
+    <a href="https://consultantlm.com/rating">Consultants</a>
+    <a href="https://consultantlm.com/documents">Documents</a>
+    <a href="https://consultantlm.com/consultations">Blog</a>
+    <a href="https://consultantlm.com/vacancies">Vacancies</a>
+    <a href="https://consultantlm.com/about-us">About us</a>
+  </nav>
+  <div class="m-bottom">
+    <a class="btn btn-primary" style="flex:1" href="https://consultantlm.com/account/login">Login</a>
+    <button class="lang-btn" type="button" style="display:inline-block" aria-label="Language: English">EN</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ================= Hero: сплит ================= -->
+<section class="hero" id="hero-form">
+  <div class="container hero-grid">
+    <div class="hero-left" data-reveal>
+      <h1>A Lawyer is always there for&nbsp;you!</h1>
+      <p class="hero-lead">CONSULTANT offers the widest range of services and unique solutions for the most complex situations!</p>
+      <form class="hero-form" id="heroForm" novalidate>
+        <div id="heroStep1">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <select aria-label="Country code" id="heroCountry">
+              <option value="+1" selected>United States (+1)</option>
+              <option value="+380">Ukraine (+380)</option>
+              <option value="+48">Poland (+48)</option>
+              <option value="+44">United Kingdom (+44)</option>
+              <option value="+971">UAE (+971)</option>
+              <option value="+">Other (+)</option>
+            </select>
+            <input type="tel" id="heroPhone" placeholder="+1" aria-label="Phone number" autocomplete="tel">
+            <p class="form-error" id="heroError" role="alert" hidden>Phone number is required</p>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Get help</button>
+          </div>
+        </div>
+        <div id="heroStep2" hidden>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <input type="text" placeholder="Last name" aria-label="Last name" autocomplete="family-name">
+            <input type="text" placeholder="First name" aria-label="First name" autocomplete="given-name">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Get help</button>
+          </div>
+        </div>
+        <p class="form-success" id="heroDone" hidden>
+          <svg class="icon"><use href="#ic-check"/></svg>Thank you! Our manager will contact you shortly.
+        </p>
+      </form>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-art">
+        <span class="hs-chip" data-reveal style="transition-delay:240ms">
+          <svg class="icon-sm"><use href="#ic-shield"/></svg>1200+ verified specialists
+        </span>
+        <article class="hs-card hs-consultant" data-reveal>
+          <div class="hs-photo">
+            <img src="../assets/img/avatar-top01.jpg" alt="Chochla Basil — Lawyer, USA / New York">
+          </div>
+          <div class="hs-body">
+            <div class="cons-meta-row">
+              <span class="badge-premium">PREMIUM</span>
+              <span class="badge-top">Top 1</span>
+              <span class="rating" style="margin-left:auto"><svg class="icon-sm"><use href="#ic-star"/></svg>22.99</span>
+            </div>
+            <p class="cons-name"><a class="cons-link" href="https://consultantlm.com/consultant/chochla-basil" style="color:inherit">Chochla Basil</a></p>
+            <p class="cons-role">Lawyer · USA / New York</p>
+          </div>
+        </article>
+        <article class="hs-card hs-review" data-reveal style="transition-delay:120ms">
+          <div class="r-head">
+            <span class="r-name">Richard</span>
+            <span class="r-date">28.01.2026</span>
+          </div>
+          <p>The lawyer provided to me by the consultant was professional, patient, and explained the legal steps I needed to take very clearly. I highly recommend the CONSULTANT app.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= How We Work ================= -->
+<section id="how">
+  <div class="container sec-grid">
+    <div class="sec-aside" data-reveal>
+      <h2>How We Work</h2>
+    </div>
+    <div class="sec-body">
+      <div class="steps-grid" data-stagger>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-01.png" alt="" loading="lazy"></span>
+            <span class="step-num">01</span>
+          </div>
+          <h3>Reach Out to Us</h3>
+          <p>CONSULTANT offers the widest range of services and unique solutions for the most complex situations!</p>
+        </article>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-02.png" alt="" loading="lazy"></span>
+            <span class="step-num">02</span>
+          </div>
+          <h3>Personal Manager 24/7</h3>
+          <p>Our specialists are available around the clock in your chat in the mobile app, any convenient messenger, and by phone.</p>
+        </article>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-03.png" alt="" loading="lazy"></span>
+            <span class="step-num">03</span>
+          </div>
+          <h3>Placing an Order</h3>
+          <p>Order in a convenient way through the mobile app! ApplePay, GooglePay, payment by details, or cryptocurrency transaction!</p>
+        </article>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-04.png" alt="" loading="lazy"></span>
+            <span class="step-num">04</span>
+          </div>
+          <h3>Choosing a Specialist</h3>
+          <p>The service has more than 1200 verified specialists from all regions, who continue to actively register on the platform and are most interested in effectively assisting our clients.</p>
+        </article>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-05.png" alt="" loading="lazy"></span>
+            <span class="step-num">05</span>
+          </div>
+          <h3>Guaranteed Results</h3>
+          <p>The specialist receives a reward only after your confirmation of a successful result! If the specialist does not complete the task - we will definitely refund your money!</p>
+        </article>
+        <article class="step card-h" data-reveal>
+          <div class="step-top">
+            <span class="step-icon"><img src="../assets/img/step-06.png" alt="" loading="lazy"></span>
+            <span class="step-num">06</span>
+          </div>
+          <h3>Earn Cashback</h3>
+          <p>CONSULTANT will credit 10% from every order made by a client you referred through the referral link in the mobile app directly to your account!</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Offer: 3 карточки ================= -->
+<section class="offer" id="services">
+  <div class="container sec-grid">
+    <div class="sec-aside" data-reveal>
+      <span class="kicker">Services</span>
+      <h2>The Best Specialists</h2>
+    </div>
+    <div class="sec-body">
+      <div class="offer-col" data-stagger>
+        <article class="offer-card card-h" data-reveal>
+          <div>
+            <h3><a href="https://consultantlm.com/services">Legal Services</a></h3>
+            <p>Order legal or financial services at any point in world from verified performers with a guaranteed result 24/7</p>
+            <ul class="offer-bullets">
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Safe Transaction</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Transparent Pricing</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Verified Performers</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Control 24/7</li>
+            </ul>
+            <a class="arrow-link" href="https://consultantlm.com/services">Legal Services<svg class="icon-sm"><use href="#ic-arrow"/></svg></a>
+          </div>
+          <div class="offer-img"><img src="../assets/img/services-1.png" alt="Legal Services in the CONSULTANT mobile app" loading="lazy"></div>
+        </article>
+        <article class="offer-card card-h" data-reveal>
+          <div>
+            <h3><a href="https://consultantlm.com/documents">Documents</a></h3>
+            <p>Download any legal or financial document that meets all standards and regulations from the largest current database of documents</p>
+            <ul class="offer-bullets">
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Created by Experienced Lawyers</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Affordable Price</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>100% Compliance with Legislation</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>Option to Order a Custom Document</li>
+            </ul>
+            <a class="arrow-link" href="https://consultantlm.com/documents">Documents<svg class="icon-sm"><use href="#ic-arrow"/></svg></a>
+          </div>
+          <div class="offer-img"><img src="../assets/img/services-2.png" alt="Documents library in the CONSULTANT mobile app" loading="lazy"></div>
+        </article>
+        <article class="offer-card card-h" data-reveal>
+          <div>
+            <h3><a href="https://consultantlm.com/consultations">Consultations</a></h3>
+            <p>Order a quick consultation from specialists or artificial intelligence through the mobile app and receive several expert answers immediately</p>
+            <ul class="offer-bullets">
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>At the Right Time</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>At the Best Price</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>In the Right Place</li>
+              <li><svg class="icon-sm"><use href="#ic-check"/></svg>From the Best Specialists</li>
+            </ul>
+            <a class="arrow-link" href="https://consultantlm.com/consultations">Consultations<svg class="icon-sm"><use href="#ic-arrow"/></svg></a>
+          </div>
+          <div class="offer-img"><img src="../assets/img/services-3.png" alt="Consultations in the CONSULTANT mobile app" loading="lazy"></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Top 10 PRO consultants ================= -->
+<section id="top10">
+  <div class="container">
+    <div class="sec-head-row" data-reveal>
+      <h2>Top 10 PRO consultants</h2>
+      <a class="arrow-link" href="https://consultantlm.com/rating">All consultants<svg class="icon-sm"><use href="#ic-arrow"/></svg></a>
+    </div>
+    <div class="cons-grid" data-stagger>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/chochla-basil">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top01.jpg" alt="Chochla Basil" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 1</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>22.99</span>
+            </div>
+            <p class="cons-name">Chochla Basil</p>
+            <p class="cons-role">Lawyer · USA / New York</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/bukovskaya-yulianna">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top02.jpg" alt="Bukovskaya Yulianna" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 2</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>21.32</span>
+            </div>
+            <p class="cons-name">Bukovskaya Yulianna</p>
+            <p class="cons-role">Lawyer · USA / Miami</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/dubograev-dmitry">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top03.jpg" alt="Dubograev Dmitry" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 3</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>20.55</span>
+            </div>
+            <p class="cons-name">Dubograev Dmitry</p>
+            <p class="cons-role">Lawyer · USA / Virginia</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/artemieva-nataliia">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top04.jpg" alt="Artemieva Nataliia" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 4</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>20.12</span>
+            </div>
+            <p class="cons-name">Artemieva Nataliia</p>
+            <p class="cons-role">Lawyer · USA / Phoenix</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/korovina-elina-1">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top05.jpg" alt="Kora Lina" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 5</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>19.26</span>
+            </div>
+            <p class="cons-name">Kora Lina</p>
+            <p class="cons-role">Lawyer · USA / California</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/listunov-oleg">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top06.jpg" alt="Listunov Oleg" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 6</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>19</span>
+            </div>
+            <p class="cons-name">Listunov Oleg</p>
+            <p class="cons-role">Consultant · USA / Boston</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/consultant-1158">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top07.jpg" alt="Moroz Eugene Olegovich" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 7</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>8.02</span>
+            </div>
+            <p class="cons-name">Moroz Eugene Olegovich</p>
+            <p class="cons-role">Consultant · USA / California</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/kurze-edward">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top08.jpg" alt="Kurze Edward" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 8</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>2.46</span>
+            </div>
+            <p class="cons-name">Kurze Edward</p>
+            <p class="cons-role">Lawyer · USA / California</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/consultant-32">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top09.jpg" alt="Boiko Kateryna" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 9</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>1.72</span>
+            </div>
+            <p class="cons-name">Boiko Kateryna</p>
+            <p class="cons-role">Consultant · USA / Delaware</p>
+          </div>
+        </a>
+      </article>
+      <article class="cons-card card-h" data-reveal>
+        <a class="cons-link" href="https://consultantlm.com/consultant/consultant-1159">
+          <div class="cons-photo">
+            <img src="../assets/img/avatar-top10.jpg" alt="Prokopenko Polina Evgenivna" loading="lazy">
+            <span class="badge-premium">PREMIUM</span>
+          </div>
+          <div class="cons-body">
+            <div class="cons-meta-row">
+              <span class="badge-top">Top 10</span>
+              <span class="rating"><svg class="icon-sm"><use href="#ic-star"/></svg>1.19</span>
+            </div>
+            <p class="cons-name">Prokopenko Polina Evgenivna</p>
+            <p class="cons-role">Consultant · USA / Oklahoma City</p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Reviews (тёмная секция) ================= -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="sec-head-row" data-reveal>
+      <h2>Reviews From Real Users</h2>
+      <div class="slider-nav">
+        <button class="slider-btn" id="revPrev" aria-label="Previous reviews"><svg class="icon flip"><use href="#ic-chev"/></svg></button>
+        <button class="slider-btn" id="revNext" aria-label="Next reviews"><svg class="icon"><use href="#ic-chev"/></svg></button>
+      </div>
+    </div>
+    <div class="rev-track" id="revTrack" data-reveal tabindex="0" aria-label="User reviews slider">
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Alexander</span><span class="rev-date">18.02.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The legal team helped us structure our telemedicine platform across several states without any disruption to operations. Their guidance on regulatory compliance was clear, practical, and saved us from costly licensing mistakes.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Arseniy</span><span class="rev-date">16.02.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I contacted him regarding a land-related issue. The lawyer promptly provided a detailed consultation, sent sample applications, and even helped with the paperwork.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Vadym</span><span class="rev-date">15.02.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>There was a situation involving a refusal of an insurance payout. Thanks to the platform, I found a lawyer who helped win the case and obtain compensation.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Viktor</span><span class="rev-date">04.02.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I liked that the service prices were clear and known in advance. There were no surprises, as often happens with in-person consultations.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Ralph</span><span class="rev-date">03.02.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>There were serious issues with terminating the rental agreement, including a conflict with the landlord. I had almost lost hope that everything would be resolved, but after reaching out here, the CONSULTANT manager helped me find an experienced lawyer within 15 minutes, and we resolved all issues in practically a week!!! I highly recommend turning here for consultation and legal assistance regarding conflicts or rental problems.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Richard</span><span class="rev-date">28.01.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The lawyer provided to me by the consultant was professional, patient, and explained the legal steps I needed to take very clearly. I highly recommend the CONSULTANT app.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Roman</span><span class="rev-date">14.01.2026</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I submitted a legal question late in the evening and received a response by the next morning. The lawyer was professional, patient, and explained all the steps I needed to take in great detail. Additionally, they provided sample documents and helpful advice that made it quick and easy to prepare the necessary paperwork. Thanks to this, the process of resolving my issue was as smooth and stress-free as possible. I highly recommend this app to anyone in need of prompt and high-quality legal assistance.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Konstantin</span><span class="rev-date">19.12.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>A very convenient service! I didn't have to go to the office — everything was handled through an online consultation. The documents were sent to my email within an hour.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Nikita</span><span class="rev-date">17.12.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The perfect option if you don't know who to turn to. It's simple: you submit a request, receive a quick response from a competent lawyer, and solve your problem. I appreciated that the lawyers on the platform are professional, patient, and explain every step very clearly.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Dmitry</span><span class="rev-date">03.12.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>There was a situation involving a denied insurance payout. Thanks to the platform, I found a lawyer who helped win the case and obtain compensation.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Henry</span><span class="rev-date">21.11.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The consultant helped us structure agreements with landowners and utility providers. Their advice was practical, business-oriented, and fully compliant with U.S. renewable energy regulations.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Jennifer</span><span class="rev-date">13.11.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Very useful platform, especially for someone new to legal matters. The explanations were in plain English and helped me make the right decision.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">William</span><span class="rev-date">01.11.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Used the platform to sort out a real estate issue. The lawyer helped me avoid a costly mistake. Worth every cent. Great concept and execution!</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Peyton</span><span class="rev-date">29.10.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The website is easy to navigate, and all communication with the lawyer was efficient and clear. I'll definitely recommend this to friends abroad.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Barbara</span><span class="rev-date">22.10.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Good legal support and quick response time. I used the platform for contract review and it worked really well. A bit more profile detail would help.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Angelina</span><span class="rev-date">14.10.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>This service is a game-changer. I needed urgent legal advice and got a full consultation the same day. The lawyer was polite and professional.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Vanessa</span><span class="rev-date">07.10.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I found a professional immigration lawyer through this site who helped me with a visa issue. Everything was clearly explained and resolved fast.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Maxim</span><span class="rev-date">03.10.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The platform helped me find a reliable lawyer for my business dispute. The process was quick, smooth, and entirely online — saved me a lot of hassle.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Amber</span><span class="rev-date">17.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Great service overall. My only suggestion would be to allow users to view more lawyer reviews before connecting. The advice I got was helpful.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Olesya E.</span><span class="rev-date">17.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>All steps were clearly explained, communication was fast and clear. The consultation really helped to avoid potential risks in commercial leasing.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Valeria</span><span class="rev-date">09.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The lawyer on the platform helped me navigate a difficult situation with the tax authorities. Everything was handled properly, and they explained the next steps I needed to take.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Andrey</span><span class="rev-date">07.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I found a lawyer for business matters and received a detailed consultation with examples and recommendations. The communication format was very convenient.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Leonid</span><span class="rev-date">03.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I reached out regarding an immigration issue. The lawyer was attentive, helped me gather the documents, and avoid a mistake. Thank you!</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Igor D.</span><span class="rev-date">01.09.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I reached out through the platform regarding a tax issue. The lawyer was attentive, professional, and quickly helped me navigate the situation. All documents were prepared correctly, and the next steps were clearly explained. I am very grateful for the prompt and high-quality assistance!</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Maria</span><span class="rev-date">30.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I reached out to the platform for a legal matter. The lawyer quickly and professionally explained all the steps, helped prepare the documents, and provided clear guidance on what to do next. Very satisfied with the service and the quality of the consultation!</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Vasily</span><span class="rev-date">21.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>The lawyer drafted a court complaint regarding a car accident. Clear, fast, and with explanations. Without this platform, I definitely wouldn't have managed on my own.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Alexander</span><span class="rev-date">21.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Очень благодарен за быстрый отклик. Нашёл специалиста буквально за час и получил грамотную помощь в административном деле.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Oleksiy</span><span class="rev-date">13.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Thanks to this service, I found a lawyer who helped me prepare a lease agreement. They explained all the details. Very convenient — everything was online with no waiting.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Андрій</span><span class="rev-date">06.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I used the service twice — each time I received clear answers and genuine help without any unnecessary delays.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Elizabeth</span><span class="rev-date">06.08.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Thank you CONSULTANT for the professional approach. The consultation was clear, to the point, and without any unnecessary details. Everything was prompt and high-quality.</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Galina</span><span class="rev-date">24.07.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>Thank you for the prompt assistance with my inheritance matter. The consultation was high-quality, fast, and clear. The lawyer explained all the steps of the process in detail, provided helpful recommendations, and assisted in preparing the necessary documents. Thanks to this, I was able to avoid mistakes and save time. I am very satisfied with the service and professionalism!</p></article>
+      <article class="rev-card"><div class="rev-head"><span class="rev-name">Kirillo</span><span class="rev-date">16.07.2025</span></div><div class="rev-stars" aria-hidden="true"><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg><svg class="icon-sm"><use href="#ic-star"/></svg></div><p>I quickly found a specialist who helped me resolve my housing rental issue. Everything was clear and professional. Thank you.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Quiz ================= -->
+<section class="quiz" id="quiz">
+  <div class="container sec-grid">
+    <div class="sec-aside" data-reveal>
+      <h2>Calculate Service cost</h2>
+    </div>
+    <div class="sec-body">
+      <div class="quiz-card" id="quizCard" data-reveal>
+        <div class="q-progress-row" id="quizProgressRow" hidden>
+          <button class="q-back" id="quizBack" type="button" aria-label="Previous question"><svg class="icon-sm flip"><use href="#ic-chev"/></svg></button>
+          <div class="q-progress" aria-hidden="true"><span id="quizBar"></span></div>
+          <span class="q-step-label" id="quizStepLabel">1 / 7</span>
+        </div>
+
+        <div class="q-screen q-start" id="quizStart">
+          <button class="btn btn-primary btn-lg" id="quizStartBtn" type="button">Calculate the cost</button>
+        </div>
+
+        <fieldset class="q-screen" data-q="0" hidden>
+          <h3 class="q-question">Are you seeking legal assistance at this time?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="1" hidden>
+          <h3 class="q-question">Is your inquiry related to U.S. immigration matters (visas, green cards, or citizenship)?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="2" hidden>
+          <h3 class="q-question">Are you currently physically located in the United States?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="3" hidden>
+          <h3 class="q-question">Do you have an existing business that needs legal services?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="4" hidden>
+          <h3 class="q-question">Is your legal matter connected to business operations or regulatory compliance in the U.S.?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="5" hidden>
+          <h3 class="q-question">Are you planning to start a new business or startup and need legal guidance?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+        <fieldset class="q-screen" data-q="6" hidden>
+          <h3 class="q-question">Do you already operate a startup and need legal support (contracts, IP, or fundraising)?</h3>
+          <div class="q-opts"><button type="button" class="q-opt">Yes</button><button type="button" class="q-opt">No</button></div>
+        </fieldset>
+
+        <form class="q-screen q-phone" id="quizPhoneForm" hidden novalidate>
+          <input type="tel" id="quizPhone" placeholder="+1" aria-label="Phone number" autocomplete="tel">
+          <p class="form-error" id="quizError" role="alert" hidden>Phone number is required</p>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Get a calculation</button>
+        </form>
+
+        <div class="q-screen q-done" id="quizDone" hidden>
+          <svg class="icon"><use href="#ic-check"/></svg>
+          <p>Thank you! Our manager will contact you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= About + новости ================= -->
+<section id="about">
+  <div class="container sec-grid">
+    <div class="sec-aside" data-reveal>
+      <span class="kicker">Important</span>
+      <h2>About us</h2>
+    </div>
+    <div class="sec-body" data-reveal>
+      <p class="about-text">Legal marketplace CONSULTANT — The best legal startup in Ukraine according to the HiiL Innovative Justice Challenge 2021 Ukraine, residents of Diia.City, the first legal service to launch a marketing strategy on all national channels, we work in Poland and England, we were the first to integrate AI (Chat GPT), we not only inform about legal problems from open data, but solve them on a turnkey basis, more than 1000 registered lawyers, more than 25,000 users of the mobile application, we have donated more than $100,000 for legal advice... and this is only a part of our achievements!</p>
+    </div>
+  </div>
+  <div class="container news-wrap" data-reveal>
+    <div class="news-head">
+      <div class="slider-nav">
+        <button class="slider-btn" id="newsPrev" aria-label="Previous news"><svg class="icon flip"><use href="#ic-chev"/></svg></button>
+        <button class="slider-btn" id="newsNext" aria-label="Next news"><svg class="icon"><use href="#ic-chev"/></svg></button>
+      </div>
+    </div>
+    <div class="news-track" id="newsTrack" tabindex="0" aria-label="Company news slider">
+      <a class="news-card card-h" href="https://consultantlm.com/news/legal-marketplace-consultant-celebrates-its-4th-anniversary">
+        <div class="news-img"><img src="../assets/img/news-01.jpg" alt="Consultant LM Celebrates Its 4th Anniversary!" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">12.08.2026</span><p class="news-title">Consultant LM Celebrates Its 4th Anniversary!</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/consultant-automates-client-request-processing">
+        <div class="news-img"><img src="../assets/img/news-02.jpg" alt="Consultant Automates Client Request Processing" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">25.06.2026</span><p class="news-title">Consultant Automates Client Request Processing</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/consultant-develops-new-opportunities-for-lawyers-and-attorneys">
+        <div class="news-img"><img src="../assets/img/news-03.jpg" alt="Consultant develops new opportunities for lawyers and attorneys." loading="lazy"></div>
+        <div class="news-body"><span class="news-date">24.06.2026</span><p class="news-title">Consultant develops new opportunities for lawyers and attorneys.</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/consultant-strengthens-customer-support-at-every-stage-of-the-inquiry-process">
+        <div class="news-img"><img src="../assets/img/news-04.jpg" alt="Consultant strengthens customer support at every stage of the inquiry process." loading="lazy"></div>
+        <div class="news-body"><span class="news-date">24.06.2026</span><p class="news-title">Consultant strengthens customer support at every stage of the inquiry process.</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/growth-expansion-and-new-team-records-at-consultant">
+        <div class="news-img"><img src="../assets/img/news-05.jpg" alt="Growth, Expansion, and New Team Records at Consultant" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">26.05.2026</span><p class="news-title">Growth, Expansion, and New Team Records at Consultant</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/consultants-participation-in-the-uk-ukraine-techbridge-business-roadshow">
+        <div class="news-img"><img src="../assets/img/news-06.jpg" alt="Consultant's Participation in the UK–Ukraine TechBridge Business Roadshow" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">15.05.2026</span><p class="news-title">Consultant's Participation in the UK–Ukraine TechBridge Business Roadshow</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/expansion-of-consultants-partner-network-in-the-usa">
+        <div class="news-img"><img src="../assets/img/news-07.jpg" alt="Expansion of Consultant's Partner Network in the USA" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">05.05.2026</span><p class="news-title">Expansion of Consultant's Partner Network in the USA</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/strategic-partnership-with-kennedys">
+        <div class="news-img"><img src="../assets/img/news-08.jpg" alt="Strategic Partnership with Kennedys" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">05.05.2026</span><p class="news-title">Strategic Partnership with Kennedys</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/new-investment-round-launches-in-the-us">
+        <div class="news-img"><img src="../assets/img/news-09.jpg" alt="New Investment Round Launches in the US" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">21.04.2026</span><p class="news-title">New Investment Round Launches in the US</p></div>
+      </a>
+      <a class="news-card card-h" href="https://consultantlm.com/news/loyalty-program-for-our-clients">
+        <div class="news-img"><img src="../assets/img/news-10.jpg" alt="Loyalty Program for Our Clients" loading="lazy"></div>
+        <div class="news-body"><span class="news-date">25.03.2026</span><p class="news-title">Loyalty Program for Our Clients</p></div>
+      </a>
+      <a class="news-card card-h no-img" href="https://consultantlm.com/news/the-legal-marketplace-consultant-presented-its-project-at-the-selectusa-pitch-competition">
+        <div class="news-body">
+          <span class="news-date">05.03.2026</span>
+          <p class="news-title">The legal marketplace "CONSULTANT" presented its project at the SelectUSA PITCH Competition</p>
+          <span class="arrow-link">Read more<svg class="icon-sm"><use href="#ic-arrow"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Trust / карта / контакты ================= -->
+<section class="trust" id="contacts">
+  <div class="container sec-grid">
+    <div class="sec-aside" data-reveal>
+      <span class="kicker">Trust</span>
+      <p class="trust-lead">We verify each specialist and always analyze their work! The rating cannot be bought — it can only be earned through quality work. Therefore, all specialists strive to provide services efficiently and receive positive feedback.</p>
+    </div>
+    <div class="sec-body">
+      <div class="trust-grid" data-stagger>
+        <div class="admin-card card-h" data-reveal>
+          <h2>Portal Administration</h2>
+          <div class="admin-row">
+            <svg class="icon"><use href="#ic-pin"/></svg>
+            <div>
+              <span class="lbl">Address</span>
+              <a href="https://maps.app.goo.gl/bjadGqG9WVPdWGrZ8" target="_blank" rel="noopener">2733, 701 Tillery Street Unit 12, Austin, TX, Travis, US, 78702</a>
+            </div>
+          </div>
+          <div class="admin-row">
+            <svg class="icon"><use href="#ic-mail"/></svg>
+            <div>
+              <span class="lbl">Email</span>
+              <a href="mailto:support@consultantlm.com">support@consultantlm.com</a>
+            </div>
+          </div>
+          <div class="admin-row">
+            <svg class="icon"><use href="#ic-phone"/></svg>
+            <div>
+              <span class="lbl">Phone</span>
+              <a href="tel:+16469348113">+16469348113</a>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="#hero-form">Request a Call</a>
+        </div>
+        <div class="map-frame" data-reveal>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3446.181637076904!2d-97.7065216!3d30.2604055!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b5d3f99b1e6b%3A0x4bf6cc3970acc3f7!2zNzAxIFRpbGxlcnkgU3QgIzEyLCBBdXN0aW4sIFRYIDc4NzAyLCDQodC_0L7Qu9GD0YfQtdC90ZYg0KjRgtCw0YLQuCDQkNC80LXRgNC40LrQuA!5e0!3m2!1suk!2sua!4v1723647042058!5m2!1suk!2sua" title="CONSULTANT office on Google Maps" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= Футер (тёмный) ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="f-top">
+      <div class="f-brand">
+        <a class="f-logo" href="https://consultantlm.com" aria-label="CONSULTANT Legal Marketplace — home">
+          <img src="../assets/img/logo_en.svg" alt="CONSULTANT Legal Marketplace">
+        </a>
+        <p class="f-promo">The service pays for 3 consultations in the mobile application CONSULTANT</p>
+        <div class="f-badges">
+          <img src="../assets/img/badge-appstore.svg" alt="Download on the App Store" loading="lazy">
+          <img src="../assets/img/badge-googleplay.svg" alt="Get it on Google Play" loading="lazy">
+        </div>
+        <div class="f-socials">
+          <a href="https://t.me/consultant_marketplace_usa" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://www.instagram.com/consultant_lm_usa" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/consultantlm.com" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.youtube.com/@consultant_lm" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <div class="f-col f-nav">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="https://consultantlm.com/rating">Consultants</a></li>
+          <li><a href="https://consultantlm.com/consultations">Blog</a></li>
+          <li><a href="https://consultantlm.com/services">Services</a></li>
+          <li><a href="https://consultantlm.com/documents">Documents</a></li>
+          <li><a href="https://consultantlm.com/vacancies">Vacancies</a></li>
+          <li><a href="https://consultantlm.com/about-us">About us</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://consultantlm.com/legal/user-agreement">User Agreement</a></li>
+          <li><a href="https://consultantlm.com/legal/consultant-agreement">Consultant Agreement</a></li>
+          <li><a href="https://consultantlm.com/legal/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="f-mapcol">
+        <img class="f-map" src="../assets/img/footer-map.png" alt="Map of CONSULTANT coverage across the USA" loading="lazy">
+        <span class="f-map-note">Coverage across all 50 states · USA</span>
+      </div>
+    </div>
+
+    <div class="f-services">
+      <h4>Popular services</h4>
+      <ul>
+        <li><a href="https://consultantlm.com/service/child-custody-after-divorce-in-the-usa-0">Child Custody After Divorce in the USA</a></li>
+        <li><a href="https://consultantlm.com/service/consultation-on-the-migration-of-individuals-to-the-usa-0">Legal conclusion</a></li>
+        <li><a href="https://consultantlm.com/service/consultation-on-employment-in-the-usa-0">Consultation on employment in the USA</a></li>
+        <li><a href="https://consultantlm.com/service/copyright-registration-0">Copyright registration</a></li>
+        <li><a href="https://consultantlm.com/service/tax-dispute-resolution-0">Tax dispute resolution</a></li>
+        <li><a href="https://consultantlm.com/service/llc-formation-limited-liability-company-0">LLC Formation (Limited Liability Company)</a></li>
+        <li><a href="https://consultantlm.com/service/consultation-on-divorce-matters-0">Divorce in the USA</a></li>
+        <li><a href="https://consultantlm.com/service/c-corporation-formation-in-usa-0">C-corporation Formation in USA</a></li>
+        <li><a href="https://consultantlm.com/service/legal-analysis-of-a-situation-0">Legal analysis of a situation</a></li>
+        <li><a href="https://consultantlm.com/service/obtaining-a-visitors-visa-0">Obtaining a visitor's visa</a></li>
+        <li><a href="https://consultantlm.com/service/obtaining-a-work-visa-0">Obtaining a work visa</a></li>
+        <li><a href="https://consultantlm.com/service/obtaining-the-us-citizenship-0">Obtaining the US citizenship</a></li>
+      </ul>
+    </div>
+
+    <div class="f-bottom">
+      <p class="f-disclaimer">© Consultantlm.com, Inc. All rights reserved. Consultant LM Inc. provides access to independent attorneys and self-service tools. Consultant LM is not a law firm and does not provide legal advice. Use of our products and services is governed by our Terms of Use. ATTORNEY ADVERTISEMENT: Attorneys advertised on this site are independent attorneys. See the attorney in your area who's responsible for this advertisement. Consultant LM, Inc. is not an "attorney referral service" or a law firm. The information you provide to Consultant LM Inc. is not protected by attorney-client privilege.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= Плавающие элементы ================= -->
+<div class="chat-panel" id="chatPanel" hidden>
+  <p>Greetings 👋 My name is Alexander, I am your personal manager. Let me help you!</p>
+  <a class="btn btn-primary btn-block" href="#hero-form" id="chatCta">Get help</a>
+</div>
+<button class="chat-fab" id="chatFab" aria-label="Open chat" aria-expanded="false">
+  <svg class="icon"><use href="#ic-chat"/></svg>
+  <span class="dot" aria-hidden="true"></span>
+</button>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies and Privacy">
+  <h4>Cookies and Privacy</h4>
+  <p>We use our own and third-party cookies to personalize content and to analyze web traffic.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-primary" id="cookieAccept" type="button">Accept</button>
+    <button class="btn btn-ghost" id="cookieReject" type="button">Reject</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Scroll-reveal + каскадный стагер ---------- */
+  document.querySelectorAll('[data-stagger]').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (el, i) {
+      if (el.hasAttribute('data-reveal') && !el.style.transitionDelay) {
+        el.style.transitionDelay = Math.min(i * 80, 480) + 'ms';
+      }
+    });
+  });
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  var io = null;
+  function revealNow(el) {
+    if (el.classList.contains('is-visible')) return;
+    el.classList.add('is-visible');
+    if (io) io.unobserve(el);
+    /* после появления убираем delay, чтобы hover-переходы были мгновенными */
+    setTimeout(function () { el.style.transitionDelay = ''; }, 1200);
+  }
+  if ('IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) revealNow(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+    /* Страховка: если IO не успел сработать (быстрый скролл, фоновая вкладка),
+       досвечиваем всё, что уже вошло в зону видимости. */
+    var sweepScheduled = false;
+    function revealSweep() {
+      sweepScheduled = false;
+      var limit = window.innerHeight * 0.94;
+      revealEls = revealEls.filter(function (el) {
+        if (el.classList.contains('is-visible')) return false;
+        if (el.getBoundingClientRect().top < limit) { revealNow(el); return false; }
+        return true;
+      });
+    }
+    window.addEventListener('scroll', function () {
+      if (!sweepScheduled) { sweepScheduled = true; setTimeout(revealSweep, 180); }
+    }, { passive: true });
+    window.addEventListener('load', revealSweep);
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* ---------- Бургер-меню ---------- */
+  var burger = document.getElementById('burgerBtn');
+  burger.addEventListener('click', function () {
+    var open = document.body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  document.querySelectorAll('#mobileMenu nav a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.body.classList.remove('menu-open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- Раскрывающийся поиск в шапке ---------- */
+  var searchWrap = document.getElementById('headerSearch');
+  var searchToggle = document.getElementById('searchToggle');
+  searchToggle.addEventListener('click', function () {
+    var open = searchWrap.classList.toggle('open');
+    searchToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) searchWrap.querySelector('input').focus();
+  });
+  document.addEventListener('click', function (e) {
+    if (!searchWrap.contains(e.target)) {
+      searchWrap.classList.remove('open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ---------- Hero-форма: ошибка только после сабмита пустого поля ---------- */
+  var heroForm = document.getElementById('heroForm');
+  var heroPhone = document.getElementById('heroPhone');
+  var heroError = document.getElementById('heroError');
+  var heroStep1 = document.getElementById('heroStep1');
+  var heroStep2 = document.getElementById('heroStep2');
+  var heroDone = document.getElementById('heroDone');
+  var heroStage = 1;
+  heroForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (heroStage === 1) {
+      if (heroPhone.value.trim() === '') {
+        heroError.hidden = false;
+        heroPhone.focus();
+        return;
+      }
+      heroError.hidden = true;
+      heroStep1.hidden = true;
+      heroStep2.hidden = false;
+      heroStage = 2;
+      heroStep2.querySelector('input').focus();
+    } else if (heroStage === 2) {
+      heroStep2.hidden = true;
+      heroDone.hidden = false;
+      heroStage = 3;
+    }
+  });
+
+  /* ---------- Слайдеры (отзывы, новости): стрелки + свайп ---------- */
+  function bindSlider(trackId, prevId, nextId) {
+    var track = document.getElementById(trackId);
+    var prev = document.getElementById(prevId);
+    var next = document.getElementById(nextId);
+    if (!track || !prev || !next) return;
+    function step() {
+      var card = track.firstElementChild;
+      if (!card) return 320;
+      var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 18;
+      return card.getBoundingClientRect().width + gap;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    function update() {
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    }
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+  bindSlider('revTrack', 'revPrev', 'revNext');
+  bindSlider('newsTrack', 'newsPrev', 'newsNext');
+
+  /* ---------- Quiz: пошагово, прогресс, Yes/No, финал с телефоном ---------- */
+  var quizCard = document.getElementById('quizCard');
+  var qScreens = quizCard.querySelectorAll('fieldset[data-q]');
+  var qTotal = qScreens.length;
+  var qStart = document.getElementById('quizStart');
+  var qStartBtn = document.getElementById('quizStartBtn');
+  var qProgressRow = document.getElementById('quizProgressRow');
+  var qBar = document.getElementById('quizBar');
+  var qLabel = document.getElementById('quizStepLabel');
+  var qBack = document.getElementById('quizBack');
+  var qPhoneForm = document.getElementById('quizPhoneForm');
+  var qPhone = document.getElementById('quizPhone');
+  var qError = document.getElementById('quizError');
+  var qDone = document.getElementById('quizDone');
+  var qIndex = -1; /* -1 = старт, 0..6 вопросы, 7 = телефон */
+
+  function quizRender() {
+    qStart.hidden = qIndex !== -1;
+    qScreens.forEach(function (fs, i) { fs.hidden = i !== qIndex; });
+    qPhoneForm.hidden = qIndex !== qTotal;
+    qProgressRow.hidden = qIndex < 0 || !qDone.hidden;
+    if (qIndex >= 0) {
+      var done = Math.min(qIndex, qTotal);
+      qBar.style.width = (done / qTotal * 100) + '%';
+      qLabel.textContent = (Math.min(qIndex + 1, qTotal)) + ' / ' + qTotal;
+    }
+  }
+  qStartBtn.addEventListener('click', function () { qIndex = 0; quizRender(); });
+  quizCard.querySelectorAll('.q-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () { qIndex += 1; quizRender(); });
+  });
+  qBack.addEventListener('click', function () {
+    if (qIndex > 0) { qIndex -= 1; } else { qIndex = -1; }
+    qError.hidden = true;
+    quizRender();
+  });
+  qPhoneForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (qPhone.value.trim() === '') {
+      qError.hidden = false;
+      qPhone.focus();
+      return;
+    }
+    qError.hidden = true;
+    qPhoneForm.hidden = true;
+    qProgressRow.hidden = true;
+    qDone.hidden = false;
+    qBar.style.width = '100%';
+  });
+  quizRender();
+
+  /* ---------- Чат-кнопка (без автопопапа) ---------- */
+  var chatFab = document.getElementById('chatFab');
+  var chatPanel = document.getElementById('chatPanel');
+  chatFab.addEventListener('click', function () {
+    var open = chatPanel.hidden;
+    chatPanel.hidden = !open;
+    chatFab.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('chatCta').addEventListener('click', function () {
+    chatPanel.hidden = true;
+    chatFab.setAttribute('aria-expanded', 'false');
+  });
+
+  /* ---------- Cookie-баннер ---------- */
+  var cookieBanner = document.getElementById('cookieBanner');
+  ['cookieAccept', 'cookieReject'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', function () {
+      cookieBanner.hidden = true;
+    });
+  });
+})();
+</script>
+</body>
+</html>

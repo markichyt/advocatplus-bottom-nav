@@ -1,0 +1,713 @@
+{
+  "_note": "Контент главной consultantlm.com 1:1. Все изображения скачаны локально в assets/img (хотлинк с сайта блокируется Cloudflare). Пути отн. корня redesign/; из variants/ добавлять ../",
+  "header": {
+    "logo_light_bg": "assets/img/logo_dark.svg",
+    "logo_dark_bg": "assets/img/logo_en.svg",
+    "logo_icon": "assets/img/logo-icon.png",
+    "nav": [
+      {
+        "t": "Services",
+        "h": "https://consultantlm.com/services"
+      },
+      {
+        "t": "Consultants",
+        "h": "https://consultantlm.com/rating"
+      },
+      {
+        "t": "Documents",
+        "h": "https://consultantlm.com/documents"
+      },
+      {
+        "t": "Blog",
+        "h": "https://consultantlm.com/consultations"
+      },
+      {
+        "t": "Vacancies",
+        "h": "https://consultantlm.com/vacancies"
+      },
+      {
+        "t": "About us",
+        "h": "https://consultantlm.com/about-us"
+      }
+    ],
+    "login": {
+      "t": "Login",
+      "h": "https://consultantlm.com/account/login"
+    },
+    "search_placeholder": "Search",
+    "lang": "EN"
+  },
+  "hero": {
+    "h1": "A Lawyer is always there for you!",
+    "form": {
+      "countries": [
+        {
+          "name": "United States",
+          "code": "+1"
+        },
+        {
+          "name": "Ukraine",
+          "code": "+380"
+        },
+        {
+          "name": "Poland",
+          "code": "+48"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "+44"
+        },
+        {
+          "name": "UAE",
+          "code": "+971"
+        },
+        {
+          "name": "Other",
+          "code": "+"
+        }
+      ],
+      "phone_placeholder": "+1",
+      "submit": "Get help",
+      "step2_fields": [
+        "Last name",
+        "First name"
+      ],
+      "validation_msg": "Phone number is required",
+      "validation_rule": "показывать ТОЛЬКО после попытки отправки пустого поля, не при загрузке"
+    }
+  },
+  "how": {
+    "heading": "How We Work",
+    "steps": [
+      {
+        "title": "Reach Out to Us",
+        "text": "CONSULTANT offers the widest range of services and unique solutions for the most complex situations!",
+        "icon": "assets/img/step-01.png"
+      },
+      {
+        "title": "Personal Manager 24/7",
+        "text": "Our specialists are available around the clock in your chat in the mobile app, any convenient messenger, and by phone.",
+        "icon": "assets/img/step-02.png"
+      },
+      {
+        "title": "Placing an Order",
+        "text": "Order in a convenient way through the mobile app! ApplePay, GooglePay, payment by details, or cryptocurrency transaction!",
+        "icon": "assets/img/step-03.png"
+      },
+      {
+        "title": "Choosing a Specialist",
+        "text": "The service has more than 1200 verified specialists from all regions, who continue to actively register on the platform and are most interested in effectively assisting our clients.",
+        "icon": "assets/img/step-04.png"
+      },
+      {
+        "title": "Guaranteed Results",
+        "text": "The specialist receives a reward only after your confirmation of a successful result! If the specialist does not complete the task - we will definitely refund your money!",
+        "icon": "assets/img/step-05.png"
+      },
+      {
+        "title": "Earn Cashback",
+        "text": "CONSULTANT will credit 10% from every order made by a client you referred through the referral link in the mobile app directly to your account!",
+        "icon": "assets/img/step-06.png"
+      }
+    ]
+  },
+  "offer": {
+    "heading_kicker": "Services",
+    "heading": "The Best Specialists",
+    "cards": [
+      {
+        "title": "Legal Services",
+        "text": "Order legal or financial services at any point in world from verified performers with a guaranteed result 24/7",
+        "bullets": [
+          "Safe Transaction",
+          "Transparent Pricing",
+          "Verified Performers",
+          "Control 24/7"
+        ],
+        "img": "assets/img/services-1.png",
+        "link": "https://consultantlm.com/services"
+      },
+      {
+        "title": "Documents",
+        "text": "Download any legal or financial document that meets all standards and regulations from the largest current database of documents",
+        "bullets": [
+          "Created by Experienced Lawyers",
+          "Affordable Price",
+          "100% Compliance with Legislation",
+          "Option to Order a Custom Document"
+        ],
+        "img": "assets/img/services-2.png",
+        "link": "https://consultantlm.com/documents"
+      },
+      {
+        "title": "Consultations",
+        "text": "Order a quick consultation from specialists or artificial intelligence through the mobile app and receive several expert answers immediately",
+        "bullets": [
+          "At the Right Time",
+          "At the Best Price",
+          "In the Right Place",
+          "From the Best Specialists"
+        ],
+        "img": "assets/img/services-3.png",
+        "link": "https://consultantlm.com/consultations"
+      }
+    ]
+  },
+  "consultants": {
+    "heading": "Top 10 PRO consultants",
+    "all_link": {
+      "t": "All consultants",
+      "h": "https://consultantlm.com/rating"
+    },
+    "cards": [
+      {
+        "top": 1,
+        "badge": "PREMIUM",
+        "rating": "22.99",
+        "name": "Chochla Basil",
+        "role": "Lawyer",
+        "geo": "USA / New York",
+        "img": "assets/img/avatar-top01.jpg",
+        "link": "https://consultantlm.com/consultant/chochla-basil"
+      },
+      {
+        "top": 2,
+        "badge": "PREMIUM",
+        "rating": "21.32",
+        "name": "Bukovskaya Yulianna",
+        "role": "Lawyer",
+        "geo": "USA / Miami",
+        "img": "assets/img/avatar-top02.jpg",
+        "link": "https://consultantlm.com/consultant/bukovskaya-yulianna"
+      },
+      {
+        "top": 3,
+        "badge": "PREMIUM",
+        "rating": "20.55",
+        "name": "Dubograev Dmitry",
+        "role": "Lawyer",
+        "geo": "USA / Virginia",
+        "img": "assets/img/avatar-top03.jpg",
+        "link": "https://consultantlm.com/consultant/dubograev-dmitry"
+      },
+      {
+        "top": 4,
+        "badge": "PREMIUM",
+        "rating": "20.12",
+        "name": "Artemieva Nataliia",
+        "role": "Lawyer",
+        "geo": "USA / Phoenix",
+        "img": "assets/img/avatar-top04.jpg",
+        "link": "https://consultantlm.com/consultant/artemieva-nataliia"
+      },
+      {
+        "top": 5,
+        "badge": "PREMIUM",
+        "rating": "19.26",
+        "name": "Kora Lina",
+        "role": "Lawyer",
+        "geo": "USA / California",
+        "img": "assets/img/avatar-top05.jpg",
+        "link": "https://consultantlm.com/consultant/korovina-elina-1"
+      },
+      {
+        "top": 6,
+        "badge": "PREMIUM",
+        "rating": "19",
+        "name": "Listunov Oleg",
+        "role": "Consultant",
+        "geo": "USA / Boston",
+        "img": "assets/img/avatar-top06.jpg",
+        "link": "https://consultantlm.com/consultant/listunov-oleg"
+      },
+      {
+        "top": 7,
+        "badge": "PREMIUM",
+        "rating": "8.02",
+        "name": "Moroz Eugene Olegovich",
+        "role": "Consultant",
+        "geo": "USA / California",
+        "img": "assets/img/avatar-top07.jpg",
+        "link": "https://consultantlm.com/consultant/consultant-1158"
+      },
+      {
+        "top": 8,
+        "badge": "PREMIUM",
+        "rating": "2.46",
+        "name": "Kurze Edward",
+        "role": "Lawyer",
+        "geo": "USA / California",
+        "img": "assets/img/avatar-top08.jpg",
+        "link": "https://consultantlm.com/consultant/kurze-edward"
+      },
+      {
+        "top": 9,
+        "badge": "PREMIUM",
+        "rating": "1.72",
+        "name": "Boiko Kateryna",
+        "role": "Consultant",
+        "geo": "USA / Delaware",
+        "img": "assets/img/avatar-top09.jpg",
+        "link": "https://consultantlm.com/consultant/consultant-32"
+      },
+      {
+        "top": 10,
+        "badge": "PREMIUM",
+        "rating": "1.19",
+        "name": "Prokopenko Polina Evgenivna",
+        "role": "Consultant",
+        "geo": "USA / Oklahoma City",
+        "img": "assets/img/avatar-top10.jpg",
+        "link": "https://consultantlm.com/consultant/consultant-1159"
+      }
+    ]
+  },
+  "reviews": {
+    "heading": "Reviews From Real Users",
+    "items": [
+      {
+        "name": "Alexander",
+        "date": "18.02.2026",
+        "text": "The legal team helped us structure our telemedicine platform across several states without any disruption to operations. Their guidance on regulatory compliance was clear, practical, and saved us from costly licensing mistakes."
+      },
+      {
+        "name": "Arseniy",
+        "date": "16.02.2026",
+        "text": "I contacted him regarding a land-related issue. The lawyer promptly provided a detailed consultation, sent sample applications, and even helped with the paperwork."
+      },
+      {
+        "name": "Vadym",
+        "date": "15.02.2026",
+        "text": "There was a situation involving a refusal of an insurance payout. Thanks to the platform, I found a lawyer who helped win the case and obtain compensation."
+      },
+      {
+        "name": "Viktor",
+        "date": "04.02.2026",
+        "text": "I liked that the service prices were clear and known in advance. There were no surprises, as often happens with in-person consultations."
+      },
+      {
+        "name": "Ralph",
+        "date": "03.02.2026",
+        "text": "There were serious issues with terminating the rental agreement, including a conflict with the landlord. I had almost lost hope that everything would be resolved, but after reaching out here, the CONSULTANT manager helped me find an experienced lawyer within 15 minutes, and we resolved all issues in practically a week!!! I highly recommend turning here for consultation and legal assistance regarding conflicts or rental problems."
+      },
+      {
+        "name": "Richard",
+        "date": "28.01.2026",
+        "text": "The lawyer provided to me by the consultant was professional, patient, and explained the legal steps I needed to take very clearly. I highly recommend the CONSULTANT app."
+      },
+      {
+        "name": "Roman",
+        "date": "14.01.2026",
+        "text": "I submitted a legal question late in the evening and received a response by the next morning. The lawyer was professional, patient, and explained all the steps I needed to take in great detail. Additionally, they provided sample documents and helpful advice that made it quick and easy to prepare the necessary paperwork. Thanks to this, the process of resolving my issue was as smooth and stress-free as possible. I highly recommend this app to anyone in need of prompt and high-quality legal assistance."
+      },
+      {
+        "name": "Konstantin",
+        "date": "19.12.2025",
+        "text": "A very convenient service! I didn't have to go to the office — everything was handled through an online consultation. The documents were sent to my email within an hour."
+      },
+      {
+        "name": "Nikita",
+        "date": "17.12.2025",
+        "text": "The perfect option if you don't know who to turn to. It's simple: you submit a request, receive a quick response from a competent lawyer, and solve your problem. I appreciated that the lawyers on the platform are professional, patient, and explain every step very clearly."
+      },
+      {
+        "name": "Dmitry",
+        "date": "03.12.2025",
+        "text": "There was a situation involving a denied insurance payout. Thanks to the platform, I found a lawyer who helped win the case and obtain compensation."
+      },
+      {
+        "name": "Henry",
+        "date": "21.11.2025",
+        "text": "The consultant helped us structure agreements with landowners and utility providers. Their advice was practical, business-oriented, and fully compliant with U.S. renewable energy regulations."
+      },
+      {
+        "name": "Jennifer",
+        "date": "13.11.2025",
+        "text": "Very useful platform, especially for someone new to legal matters. The explanations were in plain English and helped me make the right decision."
+      },
+      {
+        "name": "William",
+        "date": "01.11.2025",
+        "text": "Used the platform to sort out a real estate issue. The lawyer helped me avoid a costly mistake. Worth every cent. Great concept and execution!"
+      },
+      {
+        "name": "Peyton",
+        "date": "29.10.2025",
+        "text": "The website is easy to navigate, and all communication with the lawyer was efficient and clear. I'll definitely recommend this to friends abroad."
+      },
+      {
+        "name": "Barbara",
+        "date": "22.10.2025",
+        "text": "Good legal support and quick response time. I used the platform for contract review and it worked really well. A bit more profile detail would help."
+      },
+      {
+        "name": "Angelina",
+        "date": "14.10.2025",
+        "text": "This service is a game-changer. I needed urgent legal advice and got a full consultation the same day. The lawyer was polite and professional."
+      },
+      {
+        "name": "Vanessa",
+        "date": "07.10.2025",
+        "text": "I found a professional immigration lawyer through this site who helped me with a visa issue. Everything was clearly explained and resolved fast."
+      },
+      {
+        "name": "Maxim",
+        "date": "03.10.2025",
+        "text": "The platform helped me find a reliable lawyer for my business dispute. The process was quick, smooth, and entirely online — saved me a lot of hassle."
+      },
+      {
+        "name": "Amber",
+        "date": "17.09.2025",
+        "text": "Great service overall. My only suggestion would be to allow users to view more lawyer reviews before connecting. The advice I got was helpful."
+      },
+      {
+        "name": "Olesya E.",
+        "date": "17.09.2025",
+        "text": "All steps were clearly explained, communication was fast and clear. The consultation really helped to avoid potential risks in commercial leasing."
+      },
+      {
+        "name": "Valeria",
+        "date": "09.09.2025",
+        "text": "The lawyer on the platform helped me navigate a difficult situation with the tax authorities. Everything was handled properly, and they explained the next steps I needed to take."
+      },
+      {
+        "name": "Andrey",
+        "date": "07.09.2025",
+        "text": "I found a lawyer for business matters and received a detailed consultation with examples and recommendations. The communication format was very convenient."
+      },
+      {
+        "name": "Leonid",
+        "date": "03.09.2025",
+        "text": "I reached out regarding an immigration issue. The lawyer was attentive, helped me gather the documents, and avoid a mistake. Thank you!"
+      },
+      {
+        "name": "Igor D.",
+        "date": "01.09.2025",
+        "text": "I reached out through the platform regarding a tax issue. The lawyer was attentive, professional, and quickly helped me navigate the situation. All documents were prepared correctly, and the next steps were clearly explained. I am very grateful for the prompt and high-quality assistance!"
+      },
+      {
+        "name": "Maria",
+        "date": "30.08.2025",
+        "text": "I reached out to the platform for a legal matter. The lawyer quickly and professionally explained all the steps, helped prepare the documents, and provided clear guidance on what to do next. Very satisfied with the service and the quality of the consultation!"
+      },
+      {
+        "name": "Vasily",
+        "date": "21.08.2025",
+        "text": "The lawyer drafted a court complaint regarding a car accident. Clear, fast, and with explanations. Without this platform, I definitely wouldn't have managed on my own."
+      },
+      {
+        "name": "Alexander",
+        "date": "21.08.2025",
+        "text": "Очень благодарен за быстрый отклик. Нашёл специалиста буквально за час и получил грамотную помощь в административном деле."
+      },
+      {
+        "name": "Oleksiy",
+        "date": "13.08.2025",
+        "text": "Thanks to this service, I found a lawyer who helped me prepare a lease agreement. They explained all the details. Very convenient — everything was online with no waiting."
+      },
+      {
+        "name": "Андрій",
+        "date": "06.08.2025",
+        "text": "I used the service twice — each time I received clear answers and genuine help without any unnecessary delays."
+      },
+      {
+        "name": "Elizabeth",
+        "date": "06.08.2025",
+        "text": "Thank you CONSULTANT for the professional approach. The consultation was clear, to the point, and without any unnecessary details. Everything was prompt and high-quality."
+      },
+      {
+        "name": "Galina",
+        "date": "24.07.2025",
+        "text": "Thank you for the prompt assistance with my inheritance matter. The consultation was high-quality, fast, and clear. The lawyer explained all the steps of the process in detail, provided helpful recommendations, and assisted in preparing the necessary documents. Thanks to this, I was able to avoid mistakes and save time. I am very satisfied with the service and professionalism!"
+      },
+      {
+        "name": "Kirillo",
+        "date": "16.07.2025",
+        "text": "I quickly found a specialist who helped me resolve my housing rental issue. Everything was clear and professional. Thank you."
+      }
+    ]
+  },
+  "quiz": {
+    "heading": "Calculate Service cost",
+    "questions": [
+      {
+        "q": "Are you seeking legal assistance at this time?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Is your inquiry related to U.S. immigration matters (visas, green cards, or citizenship)?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Are you currently physically located in the United States?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Do you have an existing business that needs legal services?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Is your legal matter connected to business operations or regulatory compliance in the U.S.?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Are you planning to start a new business or startup and need legal guidance?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "q": "Do you already operate a startup and need legal support (contracts, IP, or fundraising)?",
+        "opts": [
+          "Yes",
+          "No"
+        ]
+      }
+    ],
+    "buttons": {
+      "start": "Calculate the cost",
+      "submit": "Get a calculation"
+    },
+    "phone_form": true
+  },
+  "about": {
+    "heading_kicker": "Important",
+    "heading": "About us",
+    "text": "Legal marketplace CONSULTANT — The best legal startup in Ukraine according to the HiiL Innovative Justice Challenge 2021 Ukraine, residents of Diia.City, the first legal service to launch a marketing strategy on all national channels, we work in Poland and England, we were the first to integrate AI (Chat GPT), we not only inform about legal problems from open data, but solve them on a turnkey basis, more than 1000 registered lawyers, more than 25,000 users of the mobile application, we have donated more than $100,000 for legal advice... and this is only a part of our achievements!",
+    "news": [
+      {
+        "date": "12.08.2026",
+        "title": "Consultant LM Celebrates Its 4th Anniversary!",
+        "h": "https://consultantlm.com/news/legal-marketplace-consultant-celebrates-its-4th-anniversary",
+        "img": "assets/img/news-01.jpg"
+      },
+      {
+        "date": "25.06.2026",
+        "title": "Consultant Automates Client Request Processing",
+        "h": "https://consultantlm.com/news/consultant-automates-client-request-processing",
+        "img": "assets/img/news-02.jpg"
+      },
+      {
+        "date": "24.06.2026",
+        "title": "Consultant develops new opportunities for lawyers and attorneys.",
+        "h": "https://consultantlm.com/news/consultant-develops-new-opportunities-for-lawyers-and-attorneys",
+        "img": "assets/img/news-03.jpg"
+      },
+      {
+        "date": "24.06.2026",
+        "title": "Consultant strengthens customer support at every stage of the inquiry process.",
+        "h": "https://consultantlm.com/news/consultant-strengthens-customer-support-at-every-stage-of-the-inquiry-process",
+        "img": "assets/img/news-04.jpg"
+      },
+      {
+        "date": "26.05.2026",
+        "title": "Growth, Expansion, and New Team Records at Consultant",
+        "h": "https://consultantlm.com/news/growth-expansion-and-new-team-records-at-consultant",
+        "img": "assets/img/news-05.jpg"
+      },
+      {
+        "date": "15.05.2026",
+        "title": "Consultant's Participation in the UK–Ukraine TechBridge Business Roadshow",
+        "h": "https://consultantlm.com/news/consultants-participation-in-the-uk-ukraine-techbridge-business-roadshow",
+        "img": "assets/img/news-06.jpg"
+      },
+      {
+        "date": "05.05.2026",
+        "title": "Expansion of Consultant's Partner Network in the USA",
+        "h": "https://consultantlm.com/news/expansion-of-consultants-partner-network-in-the-usa",
+        "img": "assets/img/news-07.jpg"
+      },
+      {
+        "date": "05.05.2026",
+        "title": "Strategic Partnership with Kennedys",
+        "h": "https://consultantlm.com/news/strategic-partnership-with-kennedys",
+        "img": "assets/img/news-08.jpg"
+      },
+      {
+        "date": "21.04.2026",
+        "title": "New Investment Round Launches in the US",
+        "h": "https://consultantlm.com/news/new-investment-round-launches-in-the-us",
+        "img": "assets/img/news-09.jpg"
+      },
+      {
+        "date": "25.03.2026",
+        "title": "Loyalty Program for Our Clients",
+        "h": "https://consultantlm.com/news/loyalty-program-for-our-clients",
+        "img": "assets/img/news-10.jpg"
+      },
+      {
+        "date": "05.03.2026",
+        "title": "The legal marketplace \"CONSULTANT\" presented its project at the SelectUSA PITCH Competition",
+        "h": "https://consultantlm.com/news/the-legal-marketplace-consultant-presented-its-project-at-the-selectusa-pitch-competition",
+        "img": null
+      }
+    ]
+  },
+  "trust_map": {
+    "text_lead": "We verify each specialist and always analyze their work! The rating cannot be bought — it can only be earned through quality work. Therefore, all specialists strive to provide services efficiently and receive positive feedback.",
+    "admin_heading": "Portal Administration",
+    "address": {
+      "label": "Address",
+      "value": "2733, 701 Tillery Street Unit 12, Austin, TX, Travis, US, 78702",
+      "h": "https://maps.app.goo.gl/bjadGqG9WVPdWGrZ8"
+    },
+    "email": {
+      "label": "Email",
+      "value": "support@consultantlm.com"
+    },
+    "phone": {
+      "label": "Phone",
+      "value": "+16469348113"
+    },
+    "request_call_btn": "Request a Call",
+    "map_iframe": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3446.181637076904!2d-97.7065216!3d30.2604055!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644b5d3f99b1e6b%3A0x4bf6cc3970acc3f7!2zNzAxIFRpbGxlcnkgU3QgIzEyLCBBdXN0aW4sIFRYIDc4NzAyLCDQodC_0L7Qu9GD0YfQtdC90ZYg0KjRgtCw0YLQuCDQkNC80LXRgNC40LrQuA!5e0!3m2!1suk!2sua!4v1723647042058!5m2!1suk!2sua"
+  },
+  "app_promo": {
+    "text": "The service pays for 3 consultations in the mobile application CONSULTANT",
+    "appstore_badge": "assets/img/badge-appstore.svg",
+    "googleplay_badge": "assets/img/badge-googleplay.svg"
+  },
+  "socials": [
+    {
+      "name": "Telegram",
+      "h": "https://t.me/consultant_marketplace_usa"
+    },
+    {
+      "name": "Instagram",
+      "h": "https://www.instagram.com/consultant_lm_usa"
+    },
+    {
+      "name": "Facebook",
+      "h": "https://www.facebook.com/consultantlm.com"
+    },
+    {
+      "name": "YouTube",
+      "h": "https://www.youtube.com/@consultant_lm"
+    }
+  ],
+  "footer": {
+    "legal_links": [
+      {
+        "t": "User Agreement",
+        "h": "https://consultantlm.com/legal/user-agreement"
+      },
+      {
+        "t": "Consultant Agreement",
+        "h": "https://consultantlm.com/legal/consultant-agreement"
+      },
+      {
+        "t": "Privacy Policy",
+        "h": "https://consultantlm.com/legal/privacy-policy"
+      }
+    ],
+    "nav": [
+      {
+        "t": "Consultants",
+        "h": "https://consultantlm.com/rating"
+      },
+      {
+        "t": "Blog",
+        "h": "https://consultantlm.com/consultations"
+      },
+      {
+        "t": "Services",
+        "h": "https://consultantlm.com/services"
+      },
+      {
+        "t": "Documents",
+        "h": "https://consultantlm.com/documents"
+      },
+      {
+        "t": "Vacancies",
+        "h": "https://consultantlm.com/vacancies"
+      },
+      {
+        "t": "About us",
+        "h": "https://consultantlm.com/about-us"
+      }
+    ],
+    "popular_services_note": "Длинный список ссылок на услуги (~40 шт.) — в варианте показать как компактную колонку 'Popular services' из первых 12 ссылок либо свернуть в аккордеон; полный список в data ниже.",
+    "popular_services": [
+      {
+        "t": "Child Custody After Divorce in the USA",
+        "h": "https://consultantlm.com/service/child-custody-after-divorce-in-the-usa-0"
+      },
+      {
+        "t": "Legal conclusion",
+        "h": "https://consultantlm.com/service/consultation-on-the-migration-of-individuals-to-the-usa-0"
+      },
+      {
+        "t": "Consultation on employment in the USA",
+        "h": "https://consultantlm.com/service/consultation-on-employment-in-the-usa-0"
+      },
+      {
+        "t": "Copyright registration",
+        "h": "https://consultantlm.com/service/copyright-registration-0"
+      },
+      {
+        "t": "Tax dispute resolution",
+        "h": "https://consultantlm.com/service/tax-dispute-resolution-0"
+      },
+      {
+        "t": "LLC Formation (Limited Liability Company)",
+        "h": "https://consultantlm.com/service/llc-formation-limited-liability-company-0"
+      },
+      {
+        "t": "Divorce in the USA",
+        "h": "https://consultantlm.com/service/consultation-on-divorce-matters-0"
+      },
+      {
+        "t": "C-corporation Formation in USA",
+        "h": "https://consultantlm.com/service/c-corporation-formation-in-usa-0"
+      },
+      {
+        "t": "Legal analysis of a situation",
+        "h": "https://consultantlm.com/service/legal-analysis-of-a-situation-0"
+      },
+      {
+        "t": "Obtaining a visitor's visa",
+        "h": "https://consultantlm.com/service/obtaining-a-visitors-visa-0"
+      },
+      {
+        "t": "Obtaining a work visa",
+        "h": "https://consultantlm.com/service/obtaining-a-work-visa-0"
+      },
+      {
+        "t": "Obtaining the US citizenship",
+        "h": "https://consultantlm.com/service/obtaining-the-us-citizenship-0"
+      }
+    ],
+    "app_map_img": "assets/img/footer-map.png",
+    "disclaimer": "© Consultantlm.com, Inc. All rights reserved. Consultant LM Inc. provides access to independent attorneys and self-service tools. Consultant LM is not a law firm and does not provide legal advice. Use of our products and services is governed by our Terms of Use. ATTORNEY ADVERTISEMENT: Attorneys advertised on this site are independent attorneys. See the attorney in your area who's responsible for this advertisement. Consultant LM, Inc. is not an \"attorney referral service\" or a law firm. The information you provide to Consultant LM Inc. is not protected by attorney-client privilege."
+  },
+  "floating": {
+    "chat_widget": {
+      "greeting": "Greetings 👋 My name is Alexander, I am your personal manager. Let me help you!",
+      "manager_photo": "круглая аватарка менеджера, кнопка чата — в вариантах показать как компактную кнопку без автопопапа либо со сдержанным появлением"
+    },
+    "cookie_banner": {
+      "title": "Cookies and Privacy",
+      "text": "We use our own and third-party cookies to personalize content and to analyze web traffic.",
+      "buttons": [
+        "Accept",
+        "Reject"
+      ]
+    }
+  }
+}

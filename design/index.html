@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultant — концепты редизайна главной</title>
+<link rel="icon" href="assets/img/logo-icon.png">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { background: var(--bg-soft); }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 44px 24px 96px; }
+
+  .top { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+  .top h1 { font-size: clamp(26px, 3vw, 40px); font-weight: 700; letter-spacing: -0.02em; }
+  .sub { color: var(--text-soft); margin: 12px 0 0; max-width: 720px; font-size: 15px; }
+
+  .switch { display: inline-flex; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 4px; gap: 4px; }
+  .switch button { font: inherit; font-size: 14px; font-weight: 600; color: var(--text-soft); background: none; border: 0; padding: 10px 20px; border-radius: 7px; cursor: pointer; transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); white-space: nowrap; }
+  .switch button:hover { color: var(--text); }
+  .switch button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(390px, 1fr)); gap: 26px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(27,27,27,.10); }
+
+  .thumb { position: relative; height: 272px; overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
+  .thumb iframe { width: 1280px; height: 1500px; transform: scale(0.3125); transform-origin: 0 0; border: 0; pointer-events: none; }
+  .thumb .cover { position: absolute; inset: 0; }
+  .thumb .tag { position: absolute; top: 12px; right: 12px; background: rgba(27,27,27,.86); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 6px; letter-spacing: .02em; }
+
+  .meta { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .meta .n { color: var(--brand); font-weight: 600; font-size: 13px; letter-spacing: .04em; text-transform: none; }
+  .meta h2 { font-size: 20px; font-weight: 600; }
+  .meta p { margin: 0; color: var(--text-soft); font-size: 14.5px; line-height: 1.55; flex: 1; }
+  .actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .actions a { text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 10px 20px; border-radius: 8px; transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease); }
+  .actions .primary { background: var(--brand); color: #fff; }
+  .actions .primary:hover { background: var(--brand-hover); }
+  .actions .ghost { border: 1px solid var(--border); color: var(--text); }
+  .actions .ghost:hover { border-color: var(--brand); color: var(--brand); }
+
+  .note { margin-top: 44px; padding: 22px 24px; background: #fff; border: 1px solid var(--border); border-radius: 12px; color: var(--text-soft); font-size: 14.5px; line-height: 1.6; }
+  .note b { color: var(--text); }
+  @media (max-width: 560px) { .thumb { height: 210px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Consultant — концепты редизайна главной</h1>
+      <p class="sub">Светлая основа с дозированными тёмными секциями · Avenir Next Cyr · синий #1397D6 · без фоновых изображений · контент 1:1 с текущим сайтом. Переключите радиус скруглений, чтобы сравнить один и тот же концепт в двух геометриях.</p>
+    </div>
+    <div class="switch" role="group" aria-label="Радиус скруглений">
+      <button type="button" data-set="sharp" aria-pressed="false">Строгий — радиус 3px</button>
+      <button type="button" data-set="round" aria-pressed="true">Мягкий — радиус 9–12px</button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="note">
+    <b>Как читать.</b> Наборы отличаются только геометрией углов: композиция, контент, цвета, шрифты и анимации внутри одного номера идентичны. «Мягкий» набор — карточки и панели 12px, кнопки и поля 8px, бейджи 6px. Выберите понравившийся номер и радиус — этот стиль я раскатаю на все шаблоны сайта.
+  </div>
+</div>
+<script>
+const variants = [
+  ["01", "Эйр", "Эппловский editorial: центрированный hero, гигантский воздух, членение только типографикой. Тёмные — Top 10 и футер."],
+  ["02", "Сплит", "Hero в две колонки: слева заголовок и форма, справа живые карточки консультанта и отзыва. Секции на 12-колоночной сетке."],
+  ["03", "Карточная система", "Канвас #F8F9FC, весь контент в белых карточках с тонкими рамками. Тёмные — квиз и футер."],
+  ["04", "Тёмные скобки", "Тёмный hero-band и тёмный футер как «скобки», вся середина светлая и воздушная."],
+  ["05", "Синяя панель", "Hero — крупная панель фирменного синего с белой формой, синие акцентные вставки между секциями."],
+  ["06", "Типографический минимум", "Швейцарская вёрстка: линии-разделители, номера секций, строгие гриды. Тёмный — квиз."],
+  ["07", "Якорная навигация", "Вторая sticky-строка якорей по секциям со scrollspy — страница, по которой удобно ходить."],
+  ["08", "Асимметрия", "Слева sticky-заголовки секций, справа контент. Ритм за счёт смещений. Тёмные — отзывы."],
+  ["09", "Панельный ритм", "Строгое чередование панелей белый → серый → тёмный, единая структура заголовков, счётчики цифр. Самый системный."],
+  ["10", "Продуктовый", "Стиль продуктовых страниц Apple: центрированные крупные утверждения, sticky CTA-бар снизу."]
+];
+
+const url = (n, set) => set === 'round' ? `variants-rounded/r${n}.html` : `variants/v${n}.html`;
+const label = set => set === 'round' ? '9–12px' : '3px';
+let current = 'round';
+
+function render() {
+  document.getElementById('grid').innerHTML = variants.map(([n, name, desc]) => `
+    <div class="card">
+      <div class="thumb">
+        <iframe src="${url(n, current)}" loading="lazy" tabindex="-1" title="Вариант ${n} — ${name}"></iframe>
+        <span class="tag">${label(current)}</span>
+        <a class="cover" href="${url(n, current)}" target="_blank" rel="noopener" aria-label="Открыть вариант ${n} — ${name}"></a>
+      </div>
+      <div class="meta">
+        <span class="n">Вариант ${n}</span>
+        <h2>${name}</h2>
+        <p>${desc}</p>
+        <div class="actions">
+          <a class="primary" href="${url(n, current)}" target="_blank" rel="noopener">Открыть</a>
+          <a class="ghost" href="${url(n, current === 'round' ? 'sharp' : 'round')}" target="_blank" rel="noopener">Сравнить ${label(current === 'round' ? 'sharp' : 'round')}</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+document.querySelectorAll('.switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    current = btn.dataset.set;
+    document.querySelectorAll('.switch button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === current)));
+    render();
+  });
+});
+render();
+</script>
+</body>
+</html>
